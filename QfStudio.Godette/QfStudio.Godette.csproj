@@ -5,12 +5,18 @@
         <RootNamespace>QfStudio.Godette</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+    </PropertyGroup>
 
+    <PropertyGroup>
         <PackageId>QfStudio.Godette</PackageId>
-        <PackageVersion>1.0.0</PackageVersion>
+        <PackageVersion>1.1.0</PackageVersion>
         <Authors>lightyears1998</Authors>
         <GenerateDocumentationFile>false</GenerateDocumentationFile>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="GodotSharp" Version="4.6" />
+    </ItemGroup>
 </Project>
