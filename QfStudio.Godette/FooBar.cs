@@ -1,4 +1,4 @@
-﻿namespace QfStudio.Toolbox;
+﻿namespace QfStudio.Godette;
 
 
 public class FooBar

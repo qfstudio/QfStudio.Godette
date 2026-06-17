@@ -1,14 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
+        <AssemblyName>QfStudio.Godette</AssemblyName>
+        <RootNamespace>QfStudio.Godette</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <PackageId>QfStudio.Toolbox</PackageId>
+
+        <PackageId>QfStudio.Godette</PackageId>
         <PackageVersion>1.0.0</PackageVersion>
         <Authors>lightyears1998</Authors>
-        <AssemblyName>QfStudio.Toolbox</AssemblyName>
-        <RootNamespace>QfStudio.Toolbox</RootNamespace>  
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
