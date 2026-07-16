@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ivj54i30a3lu"]
 
-[ext_resource type="Script" uid="uid://clptnr2vqsy1p" path="res://HomeScene.cs" id="1_46ilg"]
+[ext_resource type="Script" uid="uid://clptnr2vqsy1p" path="res://Views/HomeScene.cs" id="1_388of"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1"]
 font_size = 24
@@ -12,7 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_46ilg")
+script = ExtResource("1_388of")
 
 [node name="VBox" type="VBoxContainer" parent="." unique_id=1813575962]
 layout_mode = 1
@@ -35,3 +35,16 @@ label_settings = SubResource("LabelSettings_1")
 [node name="ScoreSlider" type="HSlider" parent="VBox" unique_id=1173383580]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBox" unique_id=1659592315]
+layout_mode = 2
+
+[node name="SubmitButton" type="Button" parent="VBox/HBoxContainer" unique_id=279108887]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Submit"
+
+[node name="FetchButton" type="Button" parent="VBox/HBoxContainer" unique_id=1820559986]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Fetch"

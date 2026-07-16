@@ -1,25 +1,17 @@
 using System;
+using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
 using Godot;
 using QfStudio.Godette.ReactiveUI;
 using ReactiveUI;
-using ReactiveUI.SourceGenerators;
 
-namespace QfStudio.Godette.IntegrationTests;
-
-public partial class HomeViewModel : ReactiveObject
-{
-    [Reactive]
-    public partial string Name { get; set; } = "World";
-
-    [Reactive]
-    public partial double Score { get; set; }
-}
+namespace QfStudio.Godette.IntegrationTests.Views;
 
 [SceneTree(root: "_root")]
-public partial class HomeScene : ReactiveControl<HomeViewModel>
+[GodotViewFor<ViewModels.HomeViewModel>]
+public partial class HomeScene : Control
 {
     public HomeScene()
     {
@@ -35,11 +27,11 @@ public partial class HomeScene : ReactiveControl<HomeViewModel>
                 .Subscribe(name => GD.Print($"[WhenAnyValue] Name = {name}"))
                 .DisposeWith(d);
 
-            // Test 2: this.OneWayBind — ViewModel.Name -> Label.Text (ReactiveUI standard)
+            // Test 2: this.OneWayBind — ViewModel.Name -> Label.Text
             this.OneWayBind(ViewModel, vm => vm.Name, v => v.NameLabel.Text)
                 .DisposeWith(d);
 
-            // Test 3: this.Bind — ViewModel.Score <-> HSlider.Value (ReactiveUI standard, two-way)
+            // Test 3: this.Bind — ViewModel.Score <-> HSlider.Value
             this.Bind(ViewModel, vm => vm.Score, v => v.ScoreSlider.Value)
                 .DisposeWith(d);
 
@@ -54,7 +46,16 @@ public partial class HomeScene : ReactiveControl<HomeViewModel>
                 })
                 .DisposeWith(d);
 
-            // Test 5: ViewModel property change after 1s
+            // Test 5: BindCommand — ViewModel.SubmitCommand -> Button.Pressed
+            this.BindCommand(ViewModel, vm => vm.SubmitCommand, v => v.SubmitButton)
+                .DisposeWith(d);
+
+            // Test 6: BindCommand — ViewModel.FetchCommand (async) -> Button.Pressed
+            // Button auto-disabled while executing (IsExecuting)
+            this.BindCommand(ViewModel, vm => vm.FetchCommand, v => v.FetchButton)
+                .DisposeWith(d);
+
+            // Test 7: ViewModel property change after 1s
             Observable.Timer(TimeSpan.FromSeconds(1))
                 .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(_ =>
@@ -64,7 +65,7 @@ public partial class HomeScene : ReactiveControl<HomeViewModel>
                 })
                 .DisposeWith(d);
 
-            // Test 6: ViewModel property change after 2s
+            // Test 8: ViewModel property change after 2s
             Observable.Timer(TimeSpan.FromSeconds(2))
                 .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(_ =>
@@ -74,13 +75,13 @@ public partial class HomeScene : ReactiveControl<HomeViewModel>
                 })
                 .DisposeWith(d);
 
-            // Test 7: ViewModel replacement after 3s
+            // Test 9: ViewModel replacement after 3s
             Observable.Timer(TimeSpan.FromSeconds(3))
                 .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .Subscribe(_ =>
                 {
                     GD.Print("[Test] Replace ViewModel");
-                    ViewModel = new HomeViewModel { Name = "Replaced", Score = 99 };
+                    ViewModel = new ViewModels.HomeViewModel { Name = "Replaced", Score = 99 };
                 })
                 .DisposeWith(d);
         });
@@ -88,6 +89,6 @@ public partial class HomeScene : ReactiveControl<HomeViewModel>
 
     public override void _Ready()
     {
-        ViewModel = new HomeViewModel();
+        ViewModel = new ViewModels.HomeViewModel();
     }
 }
