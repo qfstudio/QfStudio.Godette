@@ -5,8 +5,16 @@
     <Nullable>enable</Nullable>
     <RootNamespace>QfStudio.Godette.IntegrationTests</RootNamespace>
   </PropertyGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\QfStudio.Godette\QfStudio.Godette.csproj" />
     <ProjectReference Include="..\QfStudio.Godette.ReactiveUI\QfStudio.Godette.ReactiveUI.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="ReactiveUI.SourceGenerators" Version="3.1.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>
