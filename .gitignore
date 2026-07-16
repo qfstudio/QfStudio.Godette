@@ -3,5 +3,7 @@
 .vscode
 .trae
 
+# dotnet
 bin
 obj
+*.DotSettings.user
