@@ -115,28 +115,30 @@ using ReactiveUI;
 
 namespace {{Namespace}};
 
-public class Reactive{{typeName}} : global::Godot.{{typeName}}, IActivatableView, IReactiveObject
+public class Reactive{{typeName}}<T> : global::Godot.{{typeName}}, IViewFor<T>, IActivatableView, IReactiveObject where T : class
 {
     public event PropertyChangedEventHandler? PropertyChanged;
     public event PropertyChangingEventHandler? PropertyChanging;
     void IReactiveObject.RaisePropertyChanged(PropertyChangedEventArgs args) => PropertyChanged?.Invoke(this, args);
     void IReactiveObject.RaisePropertyChanging(PropertyChangingEventArgs args) => PropertyChanging?.Invoke(this, args);
 
-    private object? _viewModel;
-    public object? ViewModel
+    private T? _viewModel;
+    public T? ViewModel
     {
         get => _viewModel;
         set => this.RaiseAndSetIfChanged(ref _viewModel, value);
     }
-}
-
-public class Reactive{{typeName}}<T> : Reactive{{typeName}}, IViewFor<T> where T : class
-{
-	public new T? ViewModel
+    
+    object? IViewFor.ViewModel
 	{
-	    get => base.ViewModel as T;
-	    set => base.ViewModel = value;
+	    get => ViewModel;
+	    set => ViewModel = (T?)value;
 	}
 }
+
+public class Reactive{{typeName}} : Reactive{{typeName}}<object>
+{
+}
+
 """;
 }

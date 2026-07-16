@@ -8,26 +8,27 @@ using ReactiveUI;
 
 namespace QfStudio.Godette.ReactiveUI;
 
-public class ReactiveHBoxContainer : global::Godot.HBoxContainer, IActivatableView, IReactiveObject
+public class ReactiveHBoxContainer<T> : global::Godot.HBoxContainer, IViewFor<T>, IActivatableView, IReactiveObject where T : class
 {
     public event PropertyChangedEventHandler? PropertyChanged;
     public event PropertyChangingEventHandler? PropertyChanging;
     void IReactiveObject.RaisePropertyChanged(PropertyChangedEventArgs args) => PropertyChanged?.Invoke(this, args);
     void IReactiveObject.RaisePropertyChanging(PropertyChangingEventArgs args) => PropertyChanging?.Invoke(this, args);
 
-    private object? _viewModel;
-    public object? ViewModel
+    private T? _viewModel;
+    public T? ViewModel
     {
         get => _viewModel;
         set => this.RaiseAndSetIfChanged(ref _viewModel, value);
     }
+    
+    object? IViewFor.ViewModel
+	{
+	    get => ViewModel;
+	    set => ViewModel = (T?)value;
+	}
 }
 
-public class ReactiveHBoxContainer<T> : ReactiveHBoxContainer, IViewFor<T> where T : class
+public class ReactiveHBoxContainer : ReactiveHBoxContainer<object>
 {
-	public new T? ViewModel
-	{
-	    get => base.ViewModel as T;
-	    set => base.ViewModel = value;
-	}
 }
