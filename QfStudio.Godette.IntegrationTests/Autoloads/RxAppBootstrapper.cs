@@ -9,7 +9,9 @@ namespace QfStudio.Godette.IntegrationTests.Autoloads;
 
 public partial class RxAppBootstrapper : Godot.Node
 {
-    // TODO https://www.reactiveui.net/documentation/upgrading/rxappbuilder-migration/
+    /// <remarks>
+    /// <seealso href="https://www.reactiveui.net/documentation/upgrading/rxappbuilder-migration/" />
+    /// </remarks>
     public RxAppBootstrapper()
     {
         RxAppBuilder.CreateReactiveUIBuilder()

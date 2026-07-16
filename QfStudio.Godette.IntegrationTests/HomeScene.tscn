@@ -2,7 +2,10 @@
 
 [ext_resource type="Script" uid="uid://clptnr2vqsy1p" path="res://HomeScene.cs" id="1_46ilg"]
 
-[node name="HomeScene" type="Control" unique_id=1638851168]
+[sub_resource type="LabelSettings" id="LabelSettings_1"]
+font_size = 24
+
+[node name="HomeScene" type="Control" unique_id=435966268]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,3 +13,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_46ilg")
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1813575962]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NameLabel" type="Label" parent="VBox" unique_id=1279753598]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_1")
+
+[node name="DerivedLabel" type="Label" parent="VBox" unique_id=732210447]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_1")
+
+[node name="ScoreSlider" type="HSlider" parent="VBox" unique_id=1173383580]
+unique_name_in_owner = true
+layout_mode = 2
