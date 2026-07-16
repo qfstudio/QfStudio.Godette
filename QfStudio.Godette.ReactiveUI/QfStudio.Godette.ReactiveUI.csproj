@@ -1,15 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <AssemblyName>QfStudio.Godette</AssemblyName>
-    <RootNamespace>QfStudio.Godette</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>QfStudio.Godotte.ReactiveUI</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>QfStudio.Godette</PackageId>
-    <PackageVersion>1.1.0</PackageVersion>
+    <PackageId>QfStudio.Godette.ReactiveUI</PackageId>
+    <PackageVersion>1.0-alpha</PackageVersion>
     <Authors>lightyears1998</Authors>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <IncludeSymbols>true</IncludeSymbols>
@@ -18,5 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="GodotSharp" Version="4.7"/>
+    <PackageReference Include="ReactiveUI" Version="23.2.28" />
+    <PackageReference Include="System.Reactive" Version="6.1.0" />
   </ItemGroup>
 </Project>

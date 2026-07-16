@@ -1,0 +1,35 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QfStudio.Godette.IntegrationTests", "QfStudio.Godette.IntegrationTests\QfStudio.Godette.IntegrationTests.csproj", "{AECEEF66-7A41-4F87-AEEE-9C0D994C3D17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QfStudio.Godette.ReactiveUI", "QfStudio.Godette.ReactiveUI\QfStudio.Godette.ReactiveUI.csproj", "{D987B557-B3CC-45C9-B8E8-38445F027AAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QfStudio.Godette", "QfStudio.Godette\QfStudio.Godette.csproj", "{0CED5159-8AA9-4B4D-8718-9A4D94BA4E59}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AECEEF66-7A41-4F87-AEEE-9C0D994C3D17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AECEEF66-7A41-4F87-AEEE-9C0D994C3D17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AECEEF66-7A41-4F87-AEEE-9C0D994C3D17}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{AECEEF66-7A41-4F87-AEEE-9C0D994C3D17}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{AECEEF66-7A41-4F87-AEEE-9C0D994C3D17}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{AECEEF66-7A41-4F87-AEEE-9C0D994C3D17}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{D987B557-B3CC-45C9-B8E8-38445F027AAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D987B557-B3CC-45C9-B8E8-38445F027AAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D987B557-B3CC-45C9-B8E8-38445F027AAE}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D987B557-B3CC-45C9-B8E8-38445F027AAE}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{D987B557-B3CC-45C9-B8E8-38445F027AAE}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{D987B557-B3CC-45C9-B8E8-38445F027AAE}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+		{0CED5159-8AA9-4B4D-8718-9A4D94BA4E59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CED5159-8AA9-4B4D-8718-9A4D94BA4E59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CED5159-8AA9-4B4D-8718-9A4D94BA4E59}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CED5159-8AA9-4B4D-8718-9A4D94BA4E59}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{0CED5159-8AA9-4B4D-8718-9A4D94BA4E59}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CED5159-8AA9-4B4D-8718-9A4D94BA4E59}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal
