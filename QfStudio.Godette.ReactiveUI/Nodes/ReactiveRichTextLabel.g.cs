@@ -8,12 +8,12 @@ using ReactiveUI;
 
 namespace QfStudio.Godotte.ReactiveUI;
 
-public class ReactiveTabContainer : global::Godot.TabContainer, IActivatable
+public class ReactiveRichTextLabel : global::Godot.RichTextLabel, IActivatable
 {
     private readonly CompositeDisposable _disposables = new();
     private readonly List<Action<CompositeDisposable>> _blocks = [];
 
-	public ReactiveTabContainer() 
+	public ReactiveRichTextLabel() 
 	{
 		TreeEntered += OnTreeEntered;
 		TreeExited += OnTreeExited;
@@ -78,7 +78,7 @@ public class ReactiveTabContainer : global::Godot.TabContainer, IActivatable
     }
 }
 
-public class ReactiveTabContainer<T> : ReactiveTabContainer, IViewFor<T> where T : class 
+public class ReactiveRichTextLabel<T> : ReactiveRichTextLabel, IViewFor<T> where T : class 
 {
     object? IViewFor.ViewModel
     {

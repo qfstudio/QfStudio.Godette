@@ -13,3 +13,6 @@ The `GodotSharp` source generator expects that classes inheriting from `Godot.No
 If a source generator were used, the generated code would not be merged into the project’s directory tree, which would fail to meet this requirement. 
 Therefore, `ReactiveNodeCodeEmitter` was introduced to directly emit code files into the project directory tree.
 Currently, `QfStudio.Godette.ReactiveUI` no longer depends on the lifecycle callbacks from the `GodotSharp` source generator, but the usage of `ReactiveNodeCodeEmitter` has been retained.
+
+By the way, In C#, it is impossible to write code like `ReactiveNodeT : ReactiveNode<ReactiveNodeT>` in C++.
+So, I think we have to emit code files for each Godot type directly.
