@@ -4,27 +4,16 @@
 #nullable enable
 
 using System.ComponentModel;
-using System.Reactive.Disposables;
 using ReactiveUI;
 
 namespace QfStudio.Godette.ReactiveUI;
 
 public class ReactiveWindow : global::Godot.Window, IActivatableView, IReactiveObject
 {
-    private readonly CompositeDisposable _disposables = new();
-    private readonly List<Action<CompositeDisposable>> _blocks = [];
-
     public event PropertyChangedEventHandler? PropertyChanged;
     public event PropertyChangingEventHandler? PropertyChanging;
     void IReactiveObject.RaisePropertyChanged(PropertyChangedEventArgs args) => PropertyChanged?.Invoke(this, args);
     void IReactiveObject.RaisePropertyChanging(PropertyChangingEventArgs args) => PropertyChanging?.Invoke(this, args);
-
-	public ReactiveWindow()
-	{
-		TreeEntered += OnTreeEntered;
-		TreeExited += OnTreeExited;
-		Ready += OnReady;
-	}
 
     private object? _viewModel;
     public object? ViewModel
@@ -32,64 +21,9 @@ public class ReactiveWindow : global::Godot.Window, IActivatableView, IReactiveO
         get => _viewModel;
         set => this.RaiseAndSetIfChanged(ref _viewModel, value);
     }
-
-    public bool IsActivated { get; private set; }
-
-    public void Activate()
-    {
-        if (IsActivated) return;
-
-        IsActivated = true;
-        foreach (var block in _blocks)
-        {
-            ActivateSingleBlock(block);
-        }
-    }
-
-    private void ActivateSingleBlock(Action<CompositeDisposable> block)
-    {
-        var disposable = new CompositeDisposable();
-        block(disposable);
-        _disposables.Add(disposable);
-    }
-
-    public void Deactivate()
-    {
-        if (!IsActivated) return;
-
-        _disposables.Clear();
-        IsActivated = false;
-    }
-
-    public void WhenActivated(Action<CompositeDisposable> block)
-    {
-        _blocks.Add(block);
-
-        if (IsActivated)
-        {
-            ActivateSingleBlock(block);
-        }
-    }
-
-	private void OnTreeEntered()
-	{
-		if (IsNodeReady()) {
-			Activate();
-		}
-	}
-
-    private void OnReady()
-    {
-        Activate();
-    }
-
-    private void OnTreeExited()
-    {
-        Deactivate();
-    }
 }
 
-public class ReactiveWindow<T> : ReactiveWindow, IViewFor<T> where T : class 
+public class ReactiveWindow<T> : ReactiveWindow, IViewFor<T> where T : class
 {
 	public new T? ViewModel
 	{

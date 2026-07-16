@@ -1,6 +1,10 @@
-﻿# QfStudio.Godette
+# QfStudio.Godette
 
 ## QfStudio.Godette.ReactiveUI
+
+### Notes
+
+**Activation semantics**: A view is activated (`true`) when it is in the scene tree **and** ready (all children initialized). This is semantically equivalent to Avalonia's `AttachedToVisualTree` / `DetachedFromVisualTree`.
 
 ---
 
