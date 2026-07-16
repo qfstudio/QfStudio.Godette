@@ -19,7 +19,7 @@ public partial class RxAppBootstrapper : Godot.Node
             .WithRegistration(locator =>
             {
                 locator.RegisterConstant(new GodotActivationFetcher(), typeof(IActivationForViewFetcher));
-                locator.RegisterConstant(new GodotPropertyBindingHook(), typeof(ICreatesObservableForProperty));
+                locator.RegisterConstant(new GodotPropertyBinder(), typeof(ICreatesObservableForProperty));
                 locator.RegisterConstant(new GodotCommandBinder(), typeof(ICreatesCommandBinding));
             })
             .WithCoreServices()
