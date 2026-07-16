@@ -3,28 +3,37 @@
 /// </auto-generated>
 #nullable enable
 
+using System.ComponentModel;
 using System.Reactive.Disposables;
 using ReactiveUI;
 
 namespace QfStudio.Godette.ReactiveUI;
 
-public class ReactiveScrollContainer : global::Godot.ScrollContainer, IActivatable, IViewFor
+public class ReactiveScrollContainer : global::Godot.ScrollContainer, IActivatableView, IReactiveObject
 {
     private readonly CompositeDisposable _disposables = new();
     private readonly List<Action<CompositeDisposable>> _blocks = [];
 
-	public ReactiveScrollContainer() 
+    public event PropertyChangedEventHandler? PropertyChanged;
+    public event PropertyChangingEventHandler? PropertyChanging;
+    void IReactiveObject.RaisePropertyChanged(PropertyChangedEventArgs args) => PropertyChanged?.Invoke(this, args);
+    void IReactiveObject.RaisePropertyChanging(PropertyChangingEventArgs args) => PropertyChanging?.Invoke(this, args);
+
+	public ReactiveScrollContainer()
 	{
 		TreeEntered += OnTreeEntered;
 		TreeExited += OnTreeExited;
 		Ready += OnReady;
 	}
-	
-	public object? ViewModel { get; set; }
-    
-    public bool IsActivated { get; private set; }
 
-    public global::Godot.GodotSynchronizationContext UiContext => ActivationContextProvider.UiContext;
+    private object? _viewModel;
+    public object? ViewModel
+    {
+        get => _viewModel;
+        set => this.RaiseAndSetIfChanged(ref _viewModel, value);
+    }
+
+    public bool IsActivated { get; private set; }
 
     public void Activate()
     {
