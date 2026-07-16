@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace QfStudio.Godotte.ReactiveUI;
+namespace QfStudio.Godette.ReactiveUI;
 
 public static class ActivationContextProvider
 {

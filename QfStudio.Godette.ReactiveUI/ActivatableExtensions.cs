@@ -8,7 +8,7 @@ using System.Reactive.Linq;
 using System.Reflection;
 using ReactiveUI;
 
-namespace QfStudio.Godotte.ReactiveUI;
+namespace QfStudio.Godette.ReactiveUI;
 
 public static class ActivatableExtensions
 {

@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace QfStudio.Godotte.ReactiveUI;
+namespace QfStudio.Godette.ReactiveUI;
 
 // TODO Use C#14 .NET 10 file-based app feature
 // https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/program-structure/#building-and-running-c-programs
@@ -12,7 +12,7 @@ namespace QfStudio.Godotte.ReactiveUI;
 /// </remarks>
 public static class ReactiveNodeCodeEmitter
 {
-	private static string Namespace => "QfStudio.Godotte.ReactiveUI";
+	private static string Namespace => "QfStudio.Godette.ReactiveUI";
 
 	private static string[] TypesToTransform => [
 		// Base nodes

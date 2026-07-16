@@ -3,7 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <Nullable>enable</Nullable>
-    <RootNamespace>QfStudio.Godotte.IntegrationTests</RootNamespace>
+    <RootNamespace>QfStudio.Godette.IntegrationTests</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\QfStudio.Godette\QfStudio.Godette.csproj" />

@@ -1,7 +1,7 @@
 ﻿using System.Reactive.Disposables;
 using Godot;
 
-namespace QfStudio.Godotte.ReactiveUI;
+namespace QfStudio.Godette.ReactiveUI;
 
 public interface IActivatable
 {
