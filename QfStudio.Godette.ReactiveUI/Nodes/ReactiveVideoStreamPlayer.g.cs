@@ -8,7 +8,7 @@ using ReactiveUI;
 
 namespace QfStudio.Godette.ReactiveUI;
 
-public class ReactiveVideoStreamPlayer : global::Godot.VideoStreamPlayer, IActivatable
+public class ReactiveVideoStreamPlayer : global::Godot.VideoStreamPlayer, IActivatable, IViewFor
 {
     private readonly CompositeDisposable _disposables = new();
     private readonly List<Action<CompositeDisposable>> _blocks = [];
@@ -19,7 +19,9 @@ public class ReactiveVideoStreamPlayer : global::Godot.VideoStreamPlayer, IActiv
 		TreeExited += OnTreeExited;
 		Ready += OnReady;
 	}
-
+	
+	public object? ViewModel { get; set; }
+    
     public bool IsActivated { get; private set; }
 
     public global::Godot.GodotSynchronizationContext UiContext => ActivationContextProvider.UiContext;
@@ -80,11 +82,9 @@ public class ReactiveVideoStreamPlayer : global::Godot.VideoStreamPlayer, IActiv
 
 public class ReactiveVideoStreamPlayer<T> : ReactiveVideoStreamPlayer, IViewFor<T> where T : class 
 {
-    object? IViewFor.ViewModel
-    {
-        get => ViewModel;
-        set => ViewModel = value as T;
-    }
-
-    public T? ViewModel { get; set; }
+	public new T? ViewModel
+	{
+	    get => base.ViewModel as T;
+	    set => base.ViewModel = value;
+	}
 }

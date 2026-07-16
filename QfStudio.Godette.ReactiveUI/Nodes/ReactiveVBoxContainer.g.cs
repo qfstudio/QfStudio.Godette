@@ -8,7 +8,7 @@ using ReactiveUI;
 
 namespace QfStudio.Godette.ReactiveUI;
 
-public class ReactiveVBoxContainer : global::Godot.VBoxContainer, IActivatable
+public class ReactiveVBoxContainer : global::Godot.VBoxContainer, IActivatable, IViewFor
 {
     private readonly CompositeDisposable _disposables = new();
     private readonly List<Action<CompositeDisposable>> _blocks = [];
@@ -19,7 +19,9 @@ public class ReactiveVBoxContainer : global::Godot.VBoxContainer, IActivatable
 		TreeExited += OnTreeExited;
 		Ready += OnReady;
 	}
-
+	
+	public object? ViewModel { get; set; }
+    
     public bool IsActivated { get; private set; }
 
     public global::Godot.GodotSynchronizationContext UiContext => ActivationContextProvider.UiContext;
@@ -80,11 +82,9 @@ public class ReactiveVBoxContainer : global::Godot.VBoxContainer, IActivatable
 
 public class ReactiveVBoxContainer<T> : ReactiveVBoxContainer, IViewFor<T> where T : class 
 {
-    object? IViewFor.ViewModel
-    {
-        get => ViewModel;
-        set => ViewModel = value as T;
-    }
-
-    public T? ViewModel { get; set; }
+	public new T? ViewModel
+	{
+	    get => base.ViewModel as T;
+	    set => base.ViewModel = value;
+	}
 }
