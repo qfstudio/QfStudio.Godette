@@ -25,7 +25,7 @@ namespace QfStudio.Godette.ReactiveUI;
 /// </list>
 /// </para>
 /// <para>
-/// Semantically equivalent to Avalonia's <c>AttachedToVisualTree</c> / <c>DetachedFromVisualTree</c>.
+/// Semantically equivalent to Avalonia's <c>AttachedToVisualTree</c> and <c>DetachedFromVisualTree</c>.
 /// </para>
 /// </remarks>
 public class GodotActivationFetcher : IActivationForViewFetcher
@@ -40,24 +40,18 @@ public class GodotActivationFetcher : IActivationForViewFetcher
         var node = (Node)view;
         return Observable.Create<bool>(observer =>
         {
-            // Ready: first entry, all children initialized
             void OnReady() => observer.OnNext(true);
-
-            // TreeEntered: on re-entry, only activate if previously ready
             void OnTreeEntered()
             {
                 if (node.IsNodeReady())
                     observer.OnNext(true);
             }
-
-            // TreeExited: node left the scene tree
             void OnTreeExited() => observer.OnNext(false);
 
             node.Ready += OnReady;
             node.TreeEntered += OnTreeEntered;
             node.TreeExited += OnTreeExited;
 
-            // Initial check: already in tree and ready at subscription time
             if (node.IsInsideTree() && node.IsNodeReady())
                 observer.OnNext(true);
 
