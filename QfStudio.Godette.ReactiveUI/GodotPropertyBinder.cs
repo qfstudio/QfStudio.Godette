@@ -15,6 +15,8 @@ public class GodotPropertyBinder : ICreatesObservableForProperty
             nameof(Godot.LineEdit.Text) when typeof(Godot.LineEdit).IsAssignableFrom(type) => 10,
             nameof(Godot.TextEdit.Text) when typeof(Godot.TextEdit).IsAssignableFrom(type) => 10,
             nameof(Godot.BaseButton.ButtonPressed) when typeof(Godot.BaseButton).IsAssignableFrom(type) => 10,
+            nameof(Godot.ItemList.IsAnythingSelected) when typeof(Godot.ItemList).IsAssignableFrom(type) => 10,
+            nameof(Godot.TabContainer.CurrentTab) when typeof(Godot.TabContainer).IsAssignableFrom(type) => 10,
             _ => 0
         };
     }
@@ -37,10 +39,28 @@ public class GodotPropertyBinder : ICreatesObservableForProperty
                         h => lineEdit.TextChanged -= h)
                     .Select(v => new ObservedChange<object?, object?>(sender, expression, v)),
 
+            nameof(Godot.TextEdit.Text) when sender is Godot.TextEdit textEdit =>
+                Observable.FromEvent(
+                        h => textEdit.TextChanged += h,
+                        h => textEdit.TextChanged -= h)
+                    .Select(_ => new ObservedChange<object?, object?>(sender, expression, textEdit.Text)),
+
             nameof(Godot.BaseButton.ButtonPressed) when sender is Godot.BaseButton button =>
                 Observable.FromEvent<Godot.BaseButton.ToggledEventHandler, bool>(
                         h => button.Toggled += h,
                         h => button.Toggled -= h)
+                    .Select(v => new ObservedChange<object?, object?>(sender, expression, v)),
+
+            nameof(Godot.ItemList.IsAnythingSelected) when sender is Godot.ItemList itemList =>
+                Observable.FromEvent<Godot.ItemList.ItemSelectedEventHandler, int>(
+                        h => itemList.ItemSelected += h,
+                        h => itemList.ItemSelected -= h)
+                    .Select(_ => new ObservedChange<object?, object?>(sender, expression, itemList.IsAnythingSelected())),
+
+            nameof(Godot.TabContainer.CurrentTab) when sender is Godot.TabContainer tabContainer =>
+                Observable.FromEvent<Godot.TabContainer.TabChangedEventHandler, int>(
+                        h => tabContainer.TabChanged += h,
+                        h => tabContainer.TabChanged -= h)
                     .Select(v => new ObservedChange<object?, object?>(sender, expression, v)),
 
             _ => Observable.Never<IObservedChange<object?, object?>>()
