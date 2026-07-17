@@ -16,6 +16,18 @@ public partial class RxAppBootstrapper : Godot.Node
     {
         RxAppBuilder.CreateReactiveUIBuilder()
             .WithMainThreadScheduler(GodotMainThreadScheduler.Create(SynchronizationContext.Current!))
+            .WithConverter(new FloatToDoubleConverter())
+            .WithConverter(new DoubleToFloatConverter())
+            .WithConverter(new VariantToIntConverter())
+            .WithConverter(new VariantToFloatConverter())
+            .WithConverter(new VariantToDoubleConverter())
+            .WithConverter(new VariantToStringConverter())
+            .WithConverter(new VariantToBoolConverter())
+            .WithConverter(new IntToVariantConverter())
+            .WithConverter(new FloatToVariantConverter())
+            .WithConverter(new DoubleToVariantConverter())
+            .WithConverter(new StringToVariantConverter())
+            .WithConverter(new BoolToVariantConverter())
             .WithRegistration(locator =>
             {
                 locator.RegisterConstant(new GodotActivationFetcher(), typeof(IActivationForViewFetcher));
