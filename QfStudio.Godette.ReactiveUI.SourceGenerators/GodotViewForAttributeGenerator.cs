@@ -106,7 +106,11 @@ public sealed class GodotViewForAttributeGenerator : IIncrementalGenerator
                 continue;
             }
 
-            viewModelName = value.TypeArgumentList.Arguments[0].ToString();
+            var typeInfo = semantic.GetTypeInfo(value.TypeArgumentList.Arguments[0]);
+            if (typeInfo.Type is {} viewModelSymbol)
+            {
+                viewModelName = viewModelSymbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
+            }
             break;
         }
 
