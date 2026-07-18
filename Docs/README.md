@@ -1,21 +1,29 @@
 # QfStudio.Godette
 
-## QfStudio.Godette.ReactiveUI
+## `QfStudio.Godette.ReactiveUI` 
+
+`QfStudio.Godette.ReactiveUI` implements ReactiveUI platform services for Godot Engine.
 
 ReactiveUI is an open-source, composable MVVM (Model-View-ViewModel) framework for .NET platforms.
 
 Generally, it takes 4 steps to implement `ReactiveUI` for a custom platform.
 
-- Implement `IScheduler` for UI thread.
+- Implement `IScheduler` for the UI thread.
 - Implement `IActivationForViewFetcher` for view activation.
-- Implement `ICreatesObservableForProperty` for property changed notification.
+- Implement `ICreatesObservableForProperty` for property-change notification.
 - Implement `ICommandBinderImplementation` for command binding.
 
-QfStudio.Godette.ReactiveUI does the above job for Godot Engine.
+QfStudio.Godette.ReactiveUI implements all of the above for the Godot Engine.
+
+In the current version of QfStudio.Godette.ReactiveUI, it is designed to work with ReactiveUI v23. ReactiveUI v24-beta is not supported yet at the moment.
+
+### Installation
+
+TODO
 
 ### Usage
 
-// TODO
+TODO
 
 ### Notes
 
@@ -23,4 +31,4 @@ QfStudio.Godette.ReactiveUI does the above job for Godot Engine.
 
 ### Alternatives
 
-- [R3](https://github.com/Cysharp/R3) Zero allocation and high performance Rx .NET alternative. If you prefer building app from ReactiveProperty pieces, or don't want to apply the full MVVM pattern, you can try R3.
+- [**R3**](https://github.com/Cysharp/R3) A zero-allocation, high-performance Rx.NET alternative. If you prefer building apps with ReactiveProperty or don't want to apply the full MVVM pattern, you can try R3. Note that R3 can also be used with ReactiveUI v24.
