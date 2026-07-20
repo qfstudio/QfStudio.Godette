@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\QfStudio.Godette\QfStudio.Godette.csproj" />
     <ProjectReference Include="..\QfStudio.Godette.ReactiveUI.SourceGenerators\QfStudio.Godette.ReactiveUI.SourceGenerators.csproj"
                       ReferenceOutputAssembly="false" />
   </ItemGroup>
