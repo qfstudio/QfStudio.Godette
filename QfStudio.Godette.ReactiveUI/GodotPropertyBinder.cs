@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using System.Reactive.Linq;
 using ReactiveUI;
 
@@ -15,14 +16,18 @@ public class GodotPropertyBinder : ICreatesObservableForProperty
             nameof(Godot.LineEdit.Text) when typeof(Godot.LineEdit).IsAssignableFrom(type) => 10,
             nameof(Godot.TextEdit.Text) when typeof(Godot.TextEdit).IsAssignableFrom(type) => 10,
             nameof(Godot.BaseButton.ButtonPressed) when typeof(Godot.BaseButton).IsAssignableFrom(type) => 10,
-            nameof(Godot.ItemList.IsAnythingSelected) when typeof(Godot.ItemList).IsAssignableFrom(type) => 10,
             nameof(Godot.TabContainer.CurrentTab) when typeof(Godot.TabContainer).IsAssignableFrom(type) => 10,
+            nameof(Godot.OptionButton.Selected) when typeof(Godot.OptionButton).IsAssignableFrom(type) => 10,
+            nameof(Godot.TabBar.CurrentTab) when typeof(Godot.TabBar).IsAssignableFrom(type) => 10,
+            nameof(Godot.ColorPicker.Color) when typeof(Godot.ColorPicker).IsAssignableFrom(type) => 10,
+            nameof(Godot.ColorPickerButton.Color) when typeof(Godot.ColorPickerButton).IsAssignableFrom(type) => 10,
+
             _ => 0
         };
     }
 
     public IObservable<IObservedChange<object?, object?>> GetNotificationForProperty(
-        object sender, System.Linq.Expressions.Expression expression, string propertyName,
+        object sender, Expression expression, string propertyName,
         bool beforeChanged = false, bool suppressWarnings = false)
     {
         return propertyName switch
@@ -51,17 +56,35 @@ public class GodotPropertyBinder : ICreatesObservableForProperty
                         h => button.Toggled -= h)
                     .Select(v => new ObservedChange<object?, object?>(sender, expression, v)),
 
-            nameof(Godot.ItemList.IsAnythingSelected) when sender is Godot.ItemList itemList =>
-                Observable.FromEvent<Godot.ItemList.ItemSelectedEventHandler, int>(
-                        h => itemList.ItemSelected += h,
-                        h => itemList.ItemSelected -= h)
-                    .Select(_ => new ObservedChange<object?, object?>(sender, expression, itemList.IsAnythingSelected())),
-
             nameof(Godot.TabContainer.CurrentTab) when sender is Godot.TabContainer tabContainer =>
-                Observable.FromEvent<Godot.TabContainer.TabChangedEventHandler, int>(
+                Observable.FromEvent<Godot.TabContainer.TabChangedEventHandler, long>(
                         h => tabContainer.TabChanged += h,
                         h => tabContainer.TabChanged -= h)
-                    .Select(v => new ObservedChange<object?, object?>(sender, expression, v)),
+                    .Select(idx => new ObservedChange<object?, object?>(sender, expression, (int)idx)),
+
+            nameof(Godot.OptionButton.Selected) when sender is Godot.OptionButton optionButton =>
+                Observable.FromEvent<Godot.OptionButton.ItemSelectedEventHandler, long>(
+                        h => optionButton.ItemSelected += h,
+                        h => optionButton.ItemSelected -= h)
+                    .Select(idx => new ObservedChange<object?, object?>(sender, expression, (int)idx)),
+
+            nameof(Godot.TabBar.CurrentTab) when sender is Godot.TabBar tabBar =>
+                Observable.FromEvent<Godot.TabBar.TabChangedEventHandler, long>(
+                        h => tabBar.TabChanged += h,
+                        h => tabBar.TabChanged -= h)
+                    .Select(tab => new ObservedChange<object?, object?>(sender, expression, (int)tab)),
+
+            nameof(Godot.ColorPicker.Color) when sender is Godot.ColorPicker colorPicker =>
+                Observable.FromEvent<Godot.ColorPicker.ColorChangedEventHandler, Godot.Color>(
+                        h => colorPicker.ColorChanged += h,
+                        h => colorPicker.ColorChanged -= h)
+                    .Select(c => new ObservedChange<object?, object?>(sender, expression, c)),
+
+            nameof(Godot.ColorPickerButton.Color) when sender is Godot.ColorPickerButton colorPickerButton =>
+                Observable.FromEvent<Godot.ColorPickerButton.ColorChangedEventHandler, Godot.Color>(
+                        h => colorPickerButton.ColorChanged += h,
+                        h => colorPickerButton.ColorChanged -= h)
+                    .Select(c => new ObservedChange<object?, object?>(sender, expression, c)),
 
             _ => Observable.Never<IObservedChange<object?, object?>>()
         };

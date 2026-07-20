@@ -1,0 +1,294 @@
+[gd_scene format=3 uid="uid://d12ya8s3m268s"]
+
+[ext_resource type="Script" uid="uid://dd5bhmk0l8wp4" path="res://Views/DataBinding/DataBindingTestScene.cs" id="1_databinding"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1"]
+font_size = 24
+
+[node name="DataBindingTestScene" type="VBoxContainer" unique_id=1925841496]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_databinding")
+
+[node name="BackButton" type="Button" parent="." unique_id=697978594]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back to Home"
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=93727933]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Title" type="Label" parent="VBox" unique_id=2007920483]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Data Binding Tests"
+label_settings = SubResource("LabelSettings_1")
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBox" unique_id=218503431]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TabContainer" type="TabContainer" parent="VBox/ScrollContainer" unique_id=1781756104]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Text" type="VBoxContainer" parent="VBox/ScrollContainer/TabContainer" unique_id=2000000023]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="GreetingRow" type="HBoxContainer" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=2000000020]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBox/ScrollContainer/TabContainer/Text/GreetingRow" unique_id=551012216]
+layout_mode = 2
+text = "Greetings:"
+
+[node name="GreetingLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Text/GreetingRow" unique_id=781091065]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+label_settings = SubResource("LabelSettings_1")
+
+[node name="DerivedRow" type="HBoxContainer" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=2000000021]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="VBox/ScrollContainer/TabContainer/Text/DerivedRow" unique_id=1839988897]
+layout_mode = 2
+text = "Derived:"
+
+[node name="DerivedLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Text/DerivedRow" unique_id=1264172796]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+label_settings = SubResource("LabelSettings_1")
+
+[node name="NotesRow" type="HBoxContainer" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=2000000022]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="VBox/ScrollContainer/TabContainer/Text/NotesRow" unique_id=2110493895]
+layout_mode = 2
+text = "Notes:"
+
+[node name="NotesLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Text/NotesRow" unique_id=1666814714]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Notes: (empty)"
+label_settings = SubResource("LabelSettings_1")
+
+[node name="NameLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=1106571675]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_1")
+
+[node name="NameEditLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=2000000001]
+layout_mode = 2
+text = "LineEdit.Text ↔ Name"
+
+[node name="NameEdit" type="LineEdit" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=393030605]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Enter name..."
+
+[node name="NotesEditLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=2000000002]
+layout_mode = 2
+text = "TextEdit.Text ↔ Notes"
+
+[node name="NotesEdit" type="TextEdit" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=2013962723]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+placeholder_text = "Enter notes..."
+
+[node name="Numeric" type="VBoxContainer" parent="VBox/ScrollContainer/TabContainer" unique_id=2000000024]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="ScoreSliderLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Numeric" unique_id=2000000003]
+layout_mode = 2
+text = "Range.Value ↔ Score"
+
+[node name="ScoreSlider" type="HSlider" parent="VBox/ScrollContainer/TabContainer/Numeric" unique_id=1337513982]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ScoreValueRow" type="HBoxContainer" parent="VBox/ScrollContainer/TabContainer/Numeric" unique_id=2000000028]
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="VBox/ScrollContainer/TabContainer/Numeric/ScoreValueRow" unique_id=2000000029]
+layout_mode = 2
+text = "Score:"
+
+[node name="ScoreLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Numeric/ScoreValueRow" unique_id=2000000030]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+label_settings = SubResource("LabelSettings_1")
+
+[node name="Boolean" type="VBoxContainer" parent="VBox/ScrollContainer/TabContainer" unique_id=2000000025]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="EnableCheck" type="CheckBox" parent="VBox/ScrollContainer/TabContainer/Boolean" unique_id=1361374773]
+unique_name_in_owner = true
+layout_mode = 2
+text = "BaseButton.ButtonPressed ↔ IsEnabled"
+
+[node name="IsEnabledValueRow" type="HBoxContainer" parent="VBox/ScrollContainer/TabContainer/Boolean" unique_id=2000000031]
+layout_mode = 2
+
+[node name="Label6" type="Label" parent="VBox/ScrollContainer/TabContainer/Boolean/IsEnabledValueRow" unique_id=2000000032]
+layout_mode = 2
+text = "IsEnabled:"
+
+[node name="IsEnabledLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Boolean/IsEnabledValueRow" unique_id=2000000033]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+label_settings = SubResource("LabelSettings_1")
+
+[node name="Selection" type="VBoxContainer" parent="VBox/ScrollContainer/TabContainer" unique_id=2000000026]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="OptionSelectLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=2000000005]
+layout_mode = 2
+text = "OptionButton.Selected ↔ SelectedOption"
+
+[node name="OptionSelect" type="OptionButton" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=1260341955]
+unique_name_in_owner = true
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "Option A"
+popup/item_0/id = 0
+popup/item_1/text = "Option B"
+popup/item_1/id = 1
+popup/item_2/text = "Option C"
+popup/item_2/id = 2
+
+[node name="SelectedOptionValueRow" type="HBoxContainer" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=2000000034]
+layout_mode = 2
+
+[node name="Label7" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection/SelectedOptionValueRow" unique_id=2000000035]
+layout_mode = 2
+text = "SelectedOption:"
+
+[node name="SelectedOptionLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection/SelectedOptionValueRow" unique_id=2000000036]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+label_settings = SubResource("LabelSettings_1")
+
+[node name="TabBarSelectLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=2000000006]
+layout_mode = 2
+text = "TabBar.CurrentTab ↔ CurrentTab"
+
+[node name="TabBarSelect" type="TabBar" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=1215514205]
+unique_name_in_owner = true
+layout_mode = 2
+current_tab = 0
+tab_count = 3
+tab_0/title = "Tab 0"
+tab_1/title = "Tab 1"
+tab_2/title = "Tab 2"
+
+[node name="CurrentTabValueRow" type="HBoxContainer" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=2000000037]
+layout_mode = 2
+
+[node name="Label8" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection/CurrentTabValueRow" unique_id=2000000038]
+layout_mode = 2
+text = "CurrentTab:"
+
+[node name="CurrentTabLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection/CurrentTabValueRow" unique_id=2000000039]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+label_settings = SubResource("LabelSettings_1")
+
+[node name="MainTabsLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=2000000008]
+layout_mode = 2
+text = "TabContainer.CurrentTab ↔ CurrentTab"
+
+[node name="MainTabs" type="TabContainer" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=1022106178]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+current_tab = 0
+
+[node name="Tab1" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection/MainTabs" unique_id=1096507846]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Tab 1 content"
+metadata/_tab_index = 0
+
+[node name="Tab2" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection/MainTabs" unique_id=1388440264]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Tab 2 content"
+metadata/_tab_index = 1
+
+[node name="Tab3" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection/MainTabs" unique_id=126909602]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Tab 3 content"
+metadata/_tab_index = 2
+
+[node name="Color" type="VBoxContainer" parent="VBox/ScrollContainer/TabContainer" unique_id=2000000027]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
+[node name="ColorSelectLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Color" unique_id=2000000007]
+layout_mode = 2
+text = "ColorPickerButton.Color ↔ SelectedColor"
+
+[node name="ColorSelect" type="ColorPickerButton" parent="VBox/ScrollContainer/TabContainer/Color" unique_id=1456373840]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Select a color..."
+
+[node name="ColorPickerLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Color" unique_id=2000000009]
+layout_mode = 2
+text = "ColorPicker.Color ↔ SelectedColor"
+
+[node name="ColorPicker" type="ColorPicker" parent="VBox/ScrollContainer/TabContainer/Color" unique_id=2000000010]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+
+[node name="Converters" type="VBoxContainer" parent="VBox/ScrollContainer/TabContainer" unique_id=2000000016]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 5
+
+[node name="TempSliderLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Converters" unique_id=2000000004]
+layout_mode = 2
+text = "Range.Value (double) ↔ Temperature (float)"
+
+[node name="TempSlider" type="HSlider" parent="VBox/ScrollContainer/TabContainer/Converters" unique_id=1446154218]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 30.0
+max_value = 42.0
+step = 0.1
+value = 36.5
+
+[node name="TempLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Converters" unique_id=1168055457]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Temp: 36.5"
+label_settings = SubResource("LabelSettings_1")
