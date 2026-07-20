@@ -1,3 +1,4 @@
+using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Disposables.Fluent;
 using System.Reactive.Linq;
@@ -7,14 +8,23 @@ using ReactiveUI;
 
 namespace QfStudio.Godette.ReactiveUI;
 
+
+// TODO how to support command binding for PopupMenu?
+// PopupMenu uses id to distinguish different menus when it is pressed, however that id should not be the parameter of a ViewModel command because it is a ui stuff.
+// so a native PopupMenu is not suitable target to bind commands.
+// Similar situations: OptionButton, TabBar, ItemList, Tree, FileDialog
 public class GodotCommandBinder : ICreatesCommandBinding
 {
     int ICreatesCommandBinding.GetAffinityForObject<T>(bool hasEventTarget)
     {
-        if (typeof(BaseButton).IsAssignableFrom(typeof(T))) return 10;
-        if (typeof(LineEdit).IsAssignableFrom(typeof(T))) return 10;
-        if (typeof(PopupMenu).IsAssignableFrom(typeof(T))) return 10;
-        return 0;
+        var type = typeof(T);
+
+        return type switch
+        {
+            not null when typeof(BaseButton).IsAssignableFrom(type) => 10,
+            not null when typeof(LineEdit).IsAssignableFrom(type) => 10,
+            _ => 0
+        };
     }
 
     public IDisposable? BindCommandToObject<T>(ICommand? command, T? target, IObservable<object?> commandParameter) where T : class
@@ -22,77 +32,12 @@ public class GodotCommandBinder : ICreatesCommandBinding
         if (command is null)
             return null;
 
-        var disposable = new CompositeDisposable();
-        var latestParam = commandParameter.StartWith((object?)null);
-
-        switch (target)
+        return target switch
         {
-            case BaseButton button:
-                BindButton(command, button, latestParam, disposable);
-                break;
-            case LineEdit lineEdit:
-                BindLineEdit(command, lineEdit, latestParam, disposable);
-                break;
-            case PopupMenu popupMenu:
-                BindPopupMenu(command, popupMenu, latestParam, disposable);
-                break;
-            default:
-                return null;
-        }
-
-        return disposable;
-    }
-
-    private void BindButton(ICommand command, BaseButton button, IObservable<object?> latestParam, CompositeDisposable disposable)
-    {
-        Observable.FromEvent(
-                h => button.Pressed += h,
-                h => button.Pressed -= h)
-            .WithLatestFrom(latestParam, (_, param) => param)
-            .Subscribe(param =>
-            {
-                if (command.CanExecute(param))
-                    command.Execute(param);
-            })
-            .DisposeWith(disposable);
-
-        Observable.FromEvent<EventHandler, EventArgs>(
-                h => (_, e) => h(e),
-                h => command.CanExecuteChanged += h,
-                h => command.CanExecuteChanged -= h)
-            .WithLatestFrom(latestParam, (_, param) => param)
-            .Subscribe(param => button.Disabled = !command.CanExecute(param))
-            .DisposeWith(disposable);
-    }
-
-    private void BindLineEdit(ICommand command, LineEdit lineEdit, IObservable<object?> latestParam, CompositeDisposable disposable)
-    {
-        Observable.FromEvent<Godot.LineEdit.TextSubmittedEventHandler, string>(
-                h => lineEdit.TextSubmitted += h,
-                h => lineEdit.TextSubmitted -= h)
-            .WithLatestFrom(latestParam, (_, param) => param)
-            .Subscribe(param =>
-            {
-                if (command.CanExecute(param))
-                    command.Execute(param);
-            })
-            .DisposeWith(disposable);
-    }
-
-    private void BindPopupMenu(ICommand command, PopupMenu popupMenu, IObservable<object?> latestParam, CompositeDisposable disposable)
-    {
-        Observable.FromEvent<Godot.PopupMenu.IdPressedEventHandler, long>(
-                h => popupMenu.IdPressed += h,
-                h => popupMenu.IdPressed -= h)
-            .WithLatestFrom(latestParam, (id, param) => param ?? id)  // 默认使用 id，但允许用户覆盖
-            .Subscribe(param =>
-            {
-                if (command.CanExecute(param))
-                    command.Execute(param);
-            })
-            .DisposeWith(disposable);
-
-        // TODO: CanExecute -> Disabled
+            BaseButton button => GodotCommandBinderImpl.BindButton(command, button, commandParameter),
+            LineEdit lineEdit => GodotCommandBinderImpl.BindLineEdit(command, lineEdit, commandParameter),
+            _ => null
+        };
     }
 
     public IDisposable? BindCommandToObject<T, TEventArgs>(ICommand? command, T? target, IObservable<object?> commandParameter,
@@ -105,5 +50,137 @@ public class GodotCommandBinder : ICreatesCommandBinding
         Action<EventHandler<TEventArgs>> addHandler, Action<EventHandler<TEventArgs>> removeHandler) where T : class where TEventArgs : EventArgs
     {
         throw new NotSupportedException("GodotCommandBinder does not support custom event handlers. Use the basic overload for BaseButton.Pressed.");
+    }
+}
+
+internal static class GodotCommandBinderImpl
+{
+    private static IDisposable BindViewCore(ICommand command, Action<Action> addHandler, Action<Action> removeHandler, IObservable<object?> commandParameter, Action<bool>? setViewEnabled)
+    {
+        return BindViewCore(command, Observable.FromEvent(addHandler, removeHandler), commandParameter, setViewEnabled);
+    }
+
+    private static IDisposable BindViewCore<TDelegate, TEventArgs>(ICommand command, Action<TDelegate> addHandler, Action<TDelegate> removeHandler, IObservable<object?> commandParameter, Action<bool>? setViewEnabled)
+    {
+        return BindViewCore(command,
+            Observable.FromEvent<TDelegate, TEventArgs>(addHandler, removeHandler).Select(_ => Unit.Default),
+            commandParameter,
+            setViewEnabled);
+    }
+
+    private static IDisposable BindViewCore(ICommand command, IObservable<Unit> commandTrigger, IObservable<object?> commandParameter, Action<bool>? setViewEnabled)
+    {
+        var disposable = new CompositeDisposable();
+
+        commandTrigger
+            .WithLatestFrom(commandParameter.StartWith((object?)null), (_, param) => param)
+            .Subscribe(param =>
+            {
+                if (command.CanExecute(param))
+                    command.Execute(param);
+            })
+            .DisposeWith(disposable);
+
+        if (setViewEnabled != null)
+        {
+            Observable.FromEventPattern(
+                    h => command.CanExecuteChanged += h,
+                    h => command.CanExecuteChanged -= h)
+                .WithLatestFrom(commandParameter.StartWith((object?)null), (_, param) => param)
+                .Select(command.CanExecute)
+                .DistinctUntilChanged()
+                .Subscribe(setViewEnabled)
+                .DisposeWith(disposable);
+        }
+
+        return disposable;
+    }
+
+    public static IDisposable BindButton(ICommand command, BaseButton button, IObservable<object?> param)
+    {
+        return BindViewCore(command,
+            h => button.Pressed += h,
+            h => button.Pressed -= h,
+            param,
+            enabled => button.Disabled = !enabled);
+    }
+
+    public static IDisposable BindLineEdit(ICommand command, LineEdit lineEdit, IObservable<object?> param)
+    {
+        return BindViewCore<LineEdit.TextSubmittedEventHandler, string>(command,
+            h => lineEdit.TextSubmitted += h,
+            h => lineEdit.TextSubmitted -= h,
+            param,
+            enabled => lineEdit.Editable = enabled);
+    }
+
+    private static void BindOptionButton(ICommand command, OptionButton optionButton, IObservable<object?> latestParam, CompositeDisposable disposable)
+    {
+        Observable.FromEvent<OptionButton.ItemSelectedEventHandler, int>(
+                h => optionButton.ItemSelected += h,
+                h => optionButton.ItemSelected -= h)
+            .WithLatestFrom(latestParam, (index, param) => param ?? index)
+            .Subscribe(param =>
+            {
+                if (command.CanExecute(param))
+                    command.Execute(param);
+            })
+            .DisposeWith(disposable);
+    }
+
+    private static void BindTabBar(ICommand command, TabBar tabBar, IObservable<object?> latestParam, CompositeDisposable disposable)
+    {
+        Observable.FromEvent<TabBar.TabChangedEventHandler, int>(
+                h => tabBar.TabChanged += h,
+                h => tabBar.TabChanged -= h)
+            .WithLatestFrom(latestParam, (tab, param) => param ?? tab)
+            .Subscribe(param =>
+            {
+                if (command.CanExecute(param))
+                    command.Execute(param);
+            })
+            .DisposeWith(disposable);
+    }
+
+    private static void BindItemList(ICommand command, ItemList itemList, IObservable<object?> latestParam, CompositeDisposable disposable)
+    {
+        Observable.FromEvent<ItemList.ItemActivatedEventHandler, int>(
+                h => itemList.ItemActivated += h,
+                h => itemList.ItemActivated -= h)
+            .WithLatestFrom(latestParam, (index, param) => param ?? index)
+            .Subscribe(param =>
+            {
+                if (command.CanExecute(param))
+                    command.Execute(param);
+            })
+            .DisposeWith(disposable);
+    }
+
+    private static void BindTree(ICommand command, Tree tree, IObservable<object?> latestParam, CompositeDisposable disposable)
+    {
+        Observable.FromEvent(
+                h => tree.ItemActivated += h,
+                h => tree.ItemActivated -= h)
+            .WithLatestFrom(latestParam, (_, param) => param)
+            .Subscribe(param =>
+            {
+                if (command.CanExecute(param))
+                    command.Execute(param);
+            })
+            .DisposeWith(disposable);
+    }
+
+    private static void BindFileDialog(ICommand command, FileDialog fileDialog, IObservable<object?> latestParam, CompositeDisposable disposable)
+    {
+        Observable.FromEvent<FileDialog.FileSelectedEventHandler, string>(
+                h => fileDialog.FileSelected += h,
+                h => fileDialog.FileSelected -= h)
+            .WithLatestFrom(latestParam, (path, param) => param ?? path)
+            .Subscribe(param =>
+            {
+                if (command.CanExecute(param))
+                    command.Execute(param);
+            })
+            .DisposeWith(disposable);
     }
 }
