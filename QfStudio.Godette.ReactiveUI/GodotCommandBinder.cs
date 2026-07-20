@@ -8,7 +8,6 @@ using ReactiveUI;
 
 namespace QfStudio.Godette.ReactiveUI;
 
-
 // TODO how to support command binding for PopupMenu?
 // PopupMenu uses id to distinguish different menus when it is pressed, however that id should not be the parameter of a ViewModel command because it is a ui stuff.
 // so a native PopupMenu is not suitable target to bind commands.
@@ -83,6 +82,8 @@ internal static class GodotCommandBinderImpl
 
         if (setViewEnabled != null)
         {
+            setViewEnabled(command.CanExecute(null));
+
             Observable.FromEventPattern(
                     h => command.CanExecuteChanged += h,
                     h => command.CanExecuteChanged -= h)
