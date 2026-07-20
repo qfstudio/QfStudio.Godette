@@ -9,25 +9,13 @@ namespace QfStudio.Godette.IntegrationTests.Autoloads;
 
 public partial class RxAppBootstrapper : Godot.Node
 {
-    /// <remarks>
-    /// <seealso href="https://www.reactiveui.net/documentation/upgrading/rxappbuilder-migration/" />
-    /// </remarks>
     public RxAppBootstrapper()
     {
+        var scheduler = GodotMainThreadScheduler.Create(SynchronizationContext.Current!);
+
         RxAppBuilder.CreateReactiveUIBuilder()
-            .WithMainThreadScheduler(GodotMainThreadScheduler.Create(SynchronizationContext.Current!))
-            .WithConverter(new FloatToDoubleConverter())
-            .WithConverter(new DoubleToFloatConverter())
-            .WithConverter(new VariantToIntConverter())
-            .WithConverter(new VariantToFloatConverter())
-            .WithConverter(new VariantToDoubleConverter())
-            .WithConverter(new VariantToStringConverter())
-            .WithConverter(new VariantToBoolConverter())
-            .WithConverter(new IntToVariantConverter())
-            .WithConverter(new FloatToVariantConverter())
-            .WithConverter(new DoubleToVariantConverter())
-            .WithConverter(new StringToVariantConverter())
-            .WithConverter(new BoolToVariantConverter())
+            .WithMainThreadScheduler(scheduler)
+            .WithConverters()
             .WithRegistration(locator =>
             {
                 locator.RegisterConstant(new GodotActivationFetcher(), typeof(IActivationForViewFetcher));
@@ -36,7 +24,18 @@ public partial class RxAppBootstrapper : Godot.Node
             })
             .WithCoreServices()
             .BuildApp();
+    }
+}
 
-        Callable.From(QueueFree).CallDeferred();
+internal static class RxAppBuilderExtensions
+{
+    extension(IReactiveUIBuilder builder)
+    {
+        public IReactiveUIBuilder WithConverters()
+        {
+            return builder
+                .WithConverter(new FloatToDoubleConverter())
+                .WithConverter(new DoubleToFloatConverter());
+        }
     }
 }

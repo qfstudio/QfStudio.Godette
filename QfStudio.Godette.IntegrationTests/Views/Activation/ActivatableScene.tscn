@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://oba1y684dk28"]
+
+[ext_resource type="Script" uid="uid://b2aqfhqwm7k1p" path="res://Views/Activation/ActivatableScene.cs" id="1_act"]
+
+[node name="ActivatableScene" type="HBoxContainer" unique_id=1298543147]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+script = ExtResource("1_act")
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=463012447]
+layout_mode = 2
+
+[node name="StateLabel" type="Label" parent="VBox" unique_id=113127436]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Not Activated"
+
+[node name="CountLabel" type="Label" parent="VBox" unique_id=1698281604]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Activate: 0, Deactivate: 0"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=176648680]
+layout_mode = 2
+
+[node name="FreeButton" type="Button" parent="HBoxContainer" unique_id=1124293001]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Free"
+
+[node name="ReAttachButton" type="Button" parent="HBoxContainer" unique_id=1453781936]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Detach then Attach in 3s"

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://clptnr2vqsy1p" path="res://Views/HomeScene.cs" id="1_388of"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1"]
-font_size = 24
+font_size = 32
 
 [node name="HomeScene" type="Control" unique_id=435966268]
 layout_mode = 3
@@ -16,35 +16,84 @@ script = ExtResource("1_388of")
 
 [node name="VBox" type="VBoxContainer" parent="." unique_id=1813575962]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="NameLabel" type="Label" parent="VBox" unique_id=1279753598]
+[node name="Title" type="Label" parent="VBox" unique_id=1125941384]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Integration Tests"
 label_settings = SubResource("LabelSettings_1")
+horizontal_alignment = 1
 
-[node name="DerivedLabel" type="Label" parent="VBox" unique_id=732210447]
+[node name="Separator" type="HSeparator" parent="VBox" unique_id=933290317]
+layout_mode = 2
+
+[node name="ActivationButton" type="Button" parent="VBox" unique_id=60518548]
 unique_name_in_owner = true
 layout_mode = 2
-label_settings = SubResource("LabelSettings_1")
+text = "Activation Tests"
 
-[node name="ScoreSlider" type="HSlider" parent="VBox" unique_id=1173383580]
+[node name="DataBindingButton" type="Button" parent="VBox" unique_id=687577620]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Data Binding Tests"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBox" unique_id=1659592315]
-layout_mode = 2
-
-[node name="SubmitButton" type="Button" parent="VBox/HBoxContainer" unique_id=279108887]
+[node name="CommandButton" type="Button" parent="VBox" unique_id=941417913]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Submit"
+text = "Command Tests"
 
-[node name="FetchButton" type="Button" parent="VBox/HBoxContainer" unique_id=1820559986]
+[node name="CollectionButton" type="Button" parent="VBox" unique_id=1645994036]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Fetch"
+text = "Collection Tests"
+
+[node name="PollingBindingButton" type="Button" parent="VBox" unique_id=1052760875]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Polling Binding Tests"
+
+[node name="ItemListButton" type="Button" parent="VBox" unique_id=1053494583]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ItemList Binder Tests"
+
+[node name="ItemBinderButton" type="Button" parent="VBox" unique_id=752634452]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ItemBinder Tests (Option/Tab/Popup/Tree)"
+
+[node name="RoutingButton" type="Button" parent="VBox" unique_id=671226150]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Routing Demo"
+
+[node name="InteractionButton" type="Button" parent="VBox" unique_id=1197900635]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Interaction Tests"
+
+[node name="ObservableBridgeButton" type="Button" parent="VBox" unique_id=1387592160]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Observable Bridge Tests"
+
+[node name="ValidationButton" type="Button" parent="VBox" unique_id=1313219971]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Validation Tests"
+
+[node name="ExitButton" type="Button" parent="VBox" unique_id=1122047698]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Exit"
