@@ -32,3 +32,11 @@ TODO
 ### Alternatives
 
 - [**R3**](https://github.com/Cysharp/R3) A zero-allocation, high-performance Rx.NET alternative. If you prefer building apps with ReactiveProperty or don't want to apply the full MVVM pattern, you can try R3. Note that R3 can also be used with ReactiveUI v24.
+
+---
+
+## AI Disclosure
+
+This project uses AI-assisted coding for suggestions and trivial tasks only. 
+All code is vetted with best-effort human review. 
+No dubious code is committed.
