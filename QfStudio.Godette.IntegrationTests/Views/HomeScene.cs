@@ -9,7 +9,7 @@ public partial class HomeScene : Control
     {
         ActivationButton.Pressed += () => GetTree().ChangeSceneToFile(Activation.ActivatableHostScene.TscnFilePath);
         DataBindingButton.Pressed += () => GetTree().ChangeSceneToFile(DataBinding.DataBindingTestScene.TscnFilePath);
-        CommandButton.Pressed += () => GetTree().ChangeSceneToFile("res://Views/Command/CommandTestScene.tscn");
+        CommandButton.Pressed += () => GetTree().ChangeSceneToFile(Command.CommandTestScene.TscnFilePath);
         CollectionButton.Pressed += () => GetTree().ChangeSceneToFile("res://Views/Collection/ItemsTestScene.tscn");
         PollingBindingButton.Pressed += () => GetTree().ChangeSceneToFile("res://Views/PollingBinding/PollingBindingTestScene.tscn");
         ItemListButton.Pressed += () => GetTree().ChangeSceneToFile("res://Views/Collection/ItemListTestScene.tscn");

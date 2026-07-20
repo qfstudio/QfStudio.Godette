@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bxyy1rea6btbb"]
+
+[ext_resource type="Script" uid="uid://bfxluqycbnh71" path="res://Views/Command/CommandTestScene.cs" id="1_command"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1"]
+font_size = 24
+
+[node name="CommandTestScene" type="VBoxContainer" unique_id=2024242795]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_command")
+
+[node name="BackButton" type="Button" parent="." unique_id=5072183]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back to Home"
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=673045001]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox" unique_id=1450758921]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Command Tests"
+label_settings = SubResource("LabelSettings_1")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBox" unique_id=1103077311]
+layout_mode = 2
+
+[node name="SimpleCommandButton" type="Button" parent="VBox/HBoxContainer" unique_id=1060475586]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Run simple command"
+
+[node name="AsyncCommandButton" type="Button" parent="VBox/HBoxContainer" unique_id=522757990]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Run async command"
+
+[node name="SearchEdit" type="LineEdit" parent="VBox/HBoxContainer" unique_id=1116133698]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Run Async Search... (press Enter)"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBox" unique_id=1124661378]
+layout_mode = 2
+
+[node name="ConditionalCommandButton" type="Button" parent="VBox/HBoxContainer2" unique_id=957220283]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Conditional command"
+
+[node name="ConditionalCommandCheckButton" type="CheckButton" parent="VBox/HBoxContainer2" unique_id=2115881007]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Enable conditional command"
