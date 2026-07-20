@@ -43,13 +43,13 @@ public class GodotCommandBinder : ICreatesCommandBinding
     public IDisposable? BindCommandToObject<T, TEventArgs>(ICommand? command, T? target, IObservable<object?> commandParameter,
         string eventName) where T : class
     {
-        throw new NotSupportedException($"GodotCommandBinder does not support binding by event name. Use the basic overload for BaseButton.Pressed.");
+        throw new NotSupportedException($"GodotCommandBinder does not support binding by event name.");
     }
 
     public IDisposable? BindCommandToObject<T, TEventArgs>(ICommand? command, T? target, IObservable<object?> commandParameter,
         Action<EventHandler<TEventArgs>> addHandler, Action<EventHandler<TEventArgs>> removeHandler) where T : class where TEventArgs : EventArgs
     {
-        throw new NotSupportedException("GodotCommandBinder does not support custom event handlers. Use the basic overload for BaseButton.Pressed.");
+        throw new NotSupportedException("GodotCommandBinder does not support custom event handlers, as most Godot controls do not follow the standard .NET event pattern.");
     }
 }
 
@@ -112,75 +112,5 @@ internal static class GodotCommandBinderImpl
             h => lineEdit.TextSubmitted -= h,
             param,
             enabled => lineEdit.Editable = enabled);
-    }
-
-    private static void BindOptionButton(ICommand command, OptionButton optionButton, IObservable<object?> latestParam, CompositeDisposable disposable)
-    {
-        Observable.FromEvent<OptionButton.ItemSelectedEventHandler, int>(
-                h => optionButton.ItemSelected += h,
-                h => optionButton.ItemSelected -= h)
-            .WithLatestFrom(latestParam, (index, param) => param ?? index)
-            .Subscribe(param =>
-            {
-                if (command.CanExecute(param))
-                    command.Execute(param);
-            })
-            .DisposeWith(disposable);
-    }
-
-    private static void BindTabBar(ICommand command, TabBar tabBar, IObservable<object?> latestParam, CompositeDisposable disposable)
-    {
-        Observable.FromEvent<TabBar.TabChangedEventHandler, int>(
-                h => tabBar.TabChanged += h,
-                h => tabBar.TabChanged -= h)
-            .WithLatestFrom(latestParam, (tab, param) => param ?? tab)
-            .Subscribe(param =>
-            {
-                if (command.CanExecute(param))
-                    command.Execute(param);
-            })
-            .DisposeWith(disposable);
-    }
-
-    private static void BindItemList(ICommand command, ItemList itemList, IObservable<object?> latestParam, CompositeDisposable disposable)
-    {
-        Observable.FromEvent<ItemList.ItemActivatedEventHandler, int>(
-                h => itemList.ItemActivated += h,
-                h => itemList.ItemActivated -= h)
-            .WithLatestFrom(latestParam, (index, param) => param ?? index)
-            .Subscribe(param =>
-            {
-                if (command.CanExecute(param))
-                    command.Execute(param);
-            })
-            .DisposeWith(disposable);
-    }
-
-    private static void BindTree(ICommand command, Tree tree, IObservable<object?> latestParam, CompositeDisposable disposable)
-    {
-        Observable.FromEvent(
-                h => tree.ItemActivated += h,
-                h => tree.ItemActivated -= h)
-            .WithLatestFrom(latestParam, (_, param) => param)
-            .Subscribe(param =>
-            {
-                if (command.CanExecute(param))
-                    command.Execute(param);
-            })
-            .DisposeWith(disposable);
-    }
-
-    private static void BindFileDialog(ICommand command, FileDialog fileDialog, IObservable<object?> latestParam, CompositeDisposable disposable)
-    {
-        Observable.FromEvent<FileDialog.FileSelectedEventHandler, string>(
-                h => fileDialog.FileSelected += h,
-                h => fileDialog.FileSelected -= h)
-            .WithLatestFrom(latestParam, (path, param) => param ?? path)
-            .Subscribe(param =>
-            {
-                if (command.CanExecute(param))
-                    command.Execute(param);
-            })
-            .DisposeWith(disposable);
     }
 }
