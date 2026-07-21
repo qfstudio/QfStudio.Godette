@@ -21,6 +21,8 @@ text = "Back to Home"
 [node name="VBox" type="VBoxContainer" parent="." unique_id=623516271]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Title" type="Label" parent="VBox" unique_id=1653440993]
 unique_name_in_owner = true
@@ -29,27 +31,279 @@ text = "Observable Bridge Tests"
 label_settings = SubResource("LabelSettings_1")
 horizontal_alignment = 1
 
-[node name="ToggleButton" type="CheckButton" parent="VBox" unique_id=147106763]
+[node name="FrameInfoRow" type="HBoxContainer" parent="VBox" unique_id=-294967295]
+layout_mode = 2
+
+[node name="FrameLabel" type="Label" parent="VBox/FrameInfoRow" unique_id=1557855718]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Frames: 0"
+
+[node name="PhysicsFrameLabel" type="Label" parent="VBox/FrameInfoRow" unique_id=-1294967295]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Physics Frames: 0"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBox" unique_id=-294967294]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TabContainer" type="TabContainer" parent="VBox/ScrollContainer" unique_id=-294967293]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+current_tab = 3
+
+[node name="Button" type="VBoxContainer" parent="VBox/ScrollContainer/TabContainer" unique_id=-294967292]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ToggleEventLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Button" unique_id=-294967286]
+layout_mode = 2
+text = "CheckButton.Toggled"
+
+[node name="ToggleButton" type="CheckButton" parent="VBox/ScrollContainer/TabContainer/Button" unique_id=147106763]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Toggle Me"
 
-[node name="ToggledLabel" type="Label" parent="VBox" unique_id=1221637474]
+[node name="ToggledLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Button" unique_id=1221637474]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Toggled: False"
 
-[node name="ValueSlider" type="HSlider" parent="VBox" unique_id=509440935]
+[node name="PressEventLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Button" unique_id=-294967285]
+layout_mode = 2
+text = "BaseButton.Pressed"
+
+[node name="PressButton" type="Button" parent="VBox/ScrollContainer/TabContainer/Button" unique_id=-1294967294]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Press Me"
+
+[node name="PressedLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Button" unique_id=-1294967293]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pressed: 0"
+
+[node name="Text" type="VBoxContainer" parent="VBox/ScrollContainer/TabContainer" unique_id=-294967291]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="LineChangedLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=-294967284]
+layout_mode = 2
+text = "LineEdit.TextChanged"
+
+[node name="LineEdit" type="LineEdit" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=-1294967292]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Type here, press Enter to submit"
+
+[node name="LineEditLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=-1294967291]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Line Text: "
+
+[node name="LineSubmitLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=-294967283]
+layout_mode = 2
+text = "LineEdit.TextSubmitted"
+
+[node name="LineEditSubmittedLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=-1294967290]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Line Submitted: "
+
+[node name="TextChangedLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=-294967282]
+layout_mode = 2
+text = "TextEdit.TextChanged"
+
+[node name="TextEdit" type="TextEdit" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=-1294967289]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+placeholder_text = "Type here to trigger TextChanged"
+
+[node name="TextEditLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Text" unique_id=-1294967288]
+unique_name_in_owner = true
+layout_mode = 2
+text = "TextEdit Changes: 0"
+
+[node name="Numeric" type="VBoxContainer" parent="VBox/ScrollContainer/TabContainer" unique_id=-294967290]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="SliderChangedLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Numeric" unique_id=-294967281]
+layout_mode = 2
+text = "Range.ValueChanged"
+
+[node name="ValueSlider" type="HSlider" parent="VBox/ScrollContainer/TabContainer/Numeric" unique_id=509440935]
 unique_name_in_owner = true
 layout_mode = 2
 value = 50.0
 
-[node name="SliderLabel" type="Label" parent="VBox" unique_id=600347235]
+[node name="SliderLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Numeric" unique_id=600347235]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Slider: 50.0"
 
-[node name="FrameLabel" type="Label" parent="VBox" unique_id=1557855718]
+[node name="Selection" type="VBoxContainer" parent="VBox/ScrollContainer/TabContainer" unique_id=-294967289]
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="ItemSelectedLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=-294967280]
+layout_mode = 2
+text = "ItemList.ItemSelected"
+
+[node name="ItemList" type="ItemList" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=-1294967287]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+allow_reselect = true
+
+[node name="ItemListLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=-1294967286]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Frames: 0"
+text = "ItemList Selected: -1"
+
+[node name="OptionSelectedLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=-294967279]
+layout_mode = 2
+text = "OptionButton.ItemSelected"
+
+[node name="OptionButton" type="OptionButton" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=-1294967285]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="OptionLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=-1294967284]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Option Selected: -1"
+
+[node name="TabBarChangedLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=-294967278]
+layout_mode = 2
+text = "TabBar.TabChanged"
+
+[node name="TabBar" type="TabBar" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=-1294967283]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TabBarLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=-1294967282]
+unique_name_in_owner = true
+layout_mode = 2
+text = "TabBar Tab: -1"
+
+[node name="TabContainerChangedLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=-294967277]
+layout_mode = 2
+text = "TabContainer.TabChanged"
+
+[node name="TestTabContainer" type="TabContainer" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=-1294967281]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+current_tab = 0
+
+[node name="Tab1" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection/TestTabContainer" unique_id=-1294967280]
+layout_mode = 2
+text = "Tab 1 Content"
+metadata/_tab_index = 0
+
+[node name="Tab2" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection/TestTabContainer" unique_id=-1294967279]
+visible = false
+layout_mode = 2
+text = "Tab 2 Content"
+metadata/_tab_index = 1
+
+[node name="TabContainerLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Selection" unique_id=-1294967278]
+unique_name_in_owner = true
+layout_mode = 2
+text = "TabContainer Tab: -1"
+
+[node name="Color" type="VBoxContainer" parent="VBox/ScrollContainer/TabContainer" unique_id=-294967288]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
+[node name="ColorPickerChangedLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Color" unique_id=-294967276]
+layout_mode = 2
+text = "ColorPicker.ColorChanged"
+
+[node name="ColorPicker" type="ColorPicker" parent="VBox/ScrollContainer/TabContainer/Color" unique_id=-1294967277]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="ColorLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Color" unique_id=-1294967276]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ColorPicker: (1, 1, 1, 1)"
+
+[node name="ColorPickerButtonChangedLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Color" unique_id=-294967275]
+layout_mode = 2
+text = "ColorPickerButton.ColorChanged"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBox/ScrollContainer/TabContainer/Color" unique_id=-1294967275]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ColorPickerButtonLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/Color" unique_id=-1294967274]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ColorPickerButton: (1, 1, 1, 1)"
+
+[node name="TreePopup" type="VBoxContainer" parent="VBox/ScrollContainer/TabContainer" unique_id=-294967287]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 5
+
+[node name="TreeSelectedLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/TreePopup" unique_id=-294967274]
+layout_mode = 2
+text = "Tree.ItemSelected"
+
+[node name="Tree" type="Tree" parent="VBox/ScrollContainer/TabContainer/TreePopup" unique_id=-1294967273]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="TreeLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/TreePopup" unique_id=-1294967272]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Tree Selected: false"
+
+[node name="PopupIdLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/TreePopup" unique_id=-294967273]
+layout_mode = 2
+text = "PopupMenu.IdPressed"
+
+[node name="PopupMenuButton" type="Button" parent="VBox/ScrollContainer/TabContainer/TreePopup" unique_id=-1294967271]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Show Popup Menu"
+
+[node name="PopupSelectedLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/TreePopup" unique_id=-1294967270]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Popup Selected Id: -1"
+
+[node name="FileSelectedEventLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/TreePopup" unique_id=-294967272]
+layout_mode = 2
+text = "FileDialog.FileSelected"
+
+[node name="FileDialogButton" type="Button" parent="VBox/ScrollContainer/TabContainer/TreePopup" unique_id=-1294967269]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Open File Dialog"
+
+[node name="FileSelectedLabel" type="Label" parent="VBox/ScrollContainer/TabContainer/TreePopup" unique_id=-1294967268]
+unique_name_in_owner = true
+layout_mode = 2
+text = "File Selected: "
+
+[node name="PopupMenu" type="PopupMenu" parent="." unique_id=-1294967267]
+unique_name_in_owner = true
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=-1294967266]
+unique_name_in_owner = true
+title = "Select a File"
