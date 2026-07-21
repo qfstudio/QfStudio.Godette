@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cr32vxr1q4uq5"]
+
+[ext_resource type="Script" uid="uid://n5jgnjyr2dr6" path="res://Views/Misc/MiscTestScene.cs" id="1_2cfvh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2cfvh"]
+font_size = 24
+
+[node name="MiscTestScene" type="VBoxContainer" unique_id=1492948268]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2cfvh")
+
+[node name="BackButton" type="Button" parent="." unique_id=1542696097]
+layout_mode = 2
+text = "Back to Home"
+
+[node name="Title" type="Label" parent="." unique_id=418242258]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Misc Tests"
+label_settings = SubResource("LabelSettings_2cfvh")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=345637699]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=795269814]
+layout_mode = 2
+text = "LineEdit"
+
+[node name="TestLineEdit" type="LineEdit" parent="VBoxContainer" unique_id=1316433947]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Type something to test bindings..."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=2057013597]
+layout_mode = 2
+
+[node name="DumpButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=551883380]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Dump"
+
+[node name="ResultLabel" type="Label" parent="VBoxContainer" unique_id=1664022465]
+unique_name_in_owner = true
+layout_mode = 2

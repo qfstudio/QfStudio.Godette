@@ -93,6 +93,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Validation Tests"
 
+[node name="MiscButton" type="Button" parent="VBox" unique_id=1266444522]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Misc Tests"
+
 [node name="ExitButton" type="Button" parent="VBox" unique_id=1122047698]
 unique_name_in_owner = true
 layout_mode = 2
