@@ -35,6 +35,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Show Alert"
 
+[node name="OpenFileButton" type="Button" parent="VBox" unique_id=2039547945]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Open File (File Dialog)"
+
 [node name="ResultLabel" type="Label" parent="VBox" unique_id=2039547943]
 unique_name_in_owner = true
 layout_mode = 2
@@ -46,3 +51,7 @@ title = "Confirm"
 [node name="AlertDialog" type="AcceptDialog" parent="." unique_id=1445278334]
 unique_name_in_owner = true
 title = "Alert"
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=1445278335]
+unique_name_in_owner = true
+title = "Open File"

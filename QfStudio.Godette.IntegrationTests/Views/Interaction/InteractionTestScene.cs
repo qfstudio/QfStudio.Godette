@@ -28,6 +28,12 @@ public partial class InteractionTestScene : Control
             this.BindCommand(ViewModel, vm => vm.AlertCommand, v => v.AlertButton)
                 .DisposeWith(d);
 
+            this.BindCommand(ViewModel, vm => vm.OpenFileCommand, v => v.OpenFileButton)
+                .DisposeWith(d);
+
+            this.BindInteraction(ViewModel, vm => vm.OpenFile, CreateFilePickerHandler(FileDialog))
+                .DisposeWith(d);
+
             this.OneWayBind(ViewModel, vm => vm.ResultText, v => v.ResultLabel.Text)
                 .DisposeWith(d);
         });
@@ -98,11 +104,6 @@ public partial class InteractionTestScene : Control
             void OnCanceled() => tcs.TrySetResult(false);
         };
     }
-
-    private record FileDialogConfig(
-        FileDialog.FileModeEnum FileMode = FileDialog.FileModeEnum.OpenFile,
-        string? Title = null,
-        string[]? Filters = null);
 
     private static Func<IInteractionContext<FileDialogConfig, string?>, Task> CreateFilePickerHandler(FileDialog dialog)
     {
