@@ -11,12 +11,12 @@ public partial class HomeScene : Control
         DataBindingButton.Pressed += () => GetTree().ChangeSceneToFile(DataBinding.DataBindingTestScene.TscnFilePath);
         CommandButton.Pressed += () => GetTree().ChangeSceneToFile(Command.CommandTestScene.TscnFilePath);
         InteractionButton.Pressed += () => GetTree().ChangeSceneToFile(Interaction.InteractionTestScene.TscnFilePath);
+        ObservableBridgeButton.Pressed += () => GetTree().ChangeSceneToFile(ObservableBridge.ObservableBridgeTestScene.TscnFilePath);
         CollectionButton.Pressed += () => GetTree().ChangeSceneToFile("res://Views/Collection/ItemsTestScene.tscn");
         PollingBindingButton.Pressed += () => GetTree().ChangeSceneToFile("res://Views/PollingBinding/PollingBindingTestScene.tscn");
         ItemListButton.Pressed += () => GetTree().ChangeSceneToFile("res://Views/Collection/ItemListTestScene.tscn");
         ItemBinderButton.Pressed += () => GetTree().ChangeSceneToFile("res://Views/Collection/ItemBinderTestScene.tscn");
         RoutingButton.Pressed += () => GetTree().ChangeSceneToFile("res://Views/Routing/RoutingDemoScene.tscn");
-        ObservableBridgeButton.Pressed += () => GetTree().ChangeSceneToFile("res://Views/ObservableBridge/ObservableBridgeTestScene.tscn");
         ValidationButton.Pressed += () => GetTree().ChangeSceneToFile("res://Views/Validation/ValidationTestScene.tscn");
         ExitButton.Pressed += Exit;
     }

@@ -58,6 +58,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Interaction Tests"
 
+[node name="ObservableBridgeButton" type="Button" parent="VBox" unique_id=1387592160]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Observable Bridge Tests"
+
 [node name="CollectionButton" type="Button" parent="VBox" unique_id=1645994036]
 unique_name_in_owner = true
 layout_mode = 2
@@ -82,11 +87,6 @@ text = "ItemBinder Tests (Option/Tab/Popup/Tree)"
 unique_name_in_owner = true
 layout_mode = 2
 text = "Routing Demo"
-
-[node name="ObservableBridgeButton" type="Button" parent="VBox" unique_id=1387592160]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Observable Bridge Tests"
 
 [node name="ValidationButton" type="Button" parent="VBox" unique_id=1313219971]
 unique_name_in_owner = true
