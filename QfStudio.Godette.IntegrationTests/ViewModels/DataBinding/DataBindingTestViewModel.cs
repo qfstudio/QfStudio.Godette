@@ -9,6 +9,13 @@ public partial class DataBindingTestViewModel : ReactiveObject
 {
     private readonly ObservableAsPropertyHelper<string> _greetingHelper;
 
+    public DataBindingTestViewModel()
+    {
+        _greetingHelper = this.WhenAnyValue(x => x.Name)
+            .Select(n => $"Hello, {n}!")
+            .ToProperty(this, x => x.Greeting);
+    }
+
     [Reactive]
     public partial string Name { get; set; } = "World";
 
@@ -34,11 +41,4 @@ public partial class DataBindingTestViewModel : ReactiveObject
     public partial int CurrentTab { get; set; }
 
     public string Greeting => _greetingHelper.Value;
-
-    public DataBindingTestViewModel()
-    {
-        _greetingHelper = this.WhenAnyValue(x => x.Name)
-            .Select(n => $"Hello, {n}!")
-            .ToProperty(this, x => x.Greeting);
-    }
 }

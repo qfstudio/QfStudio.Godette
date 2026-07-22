@@ -1,5 +1,4 @@
 using System.Reactive;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Godot;
 using ReactiveUI;
@@ -9,18 +8,6 @@ namespace QfStudio.Godette.IntegrationTests.ViewModels.Command;
 
 public partial class CommandTestViewModel : ReactiveObject
 {
-    [Reactive]
-    public partial string QueryString { get; set; } = "World";
-
-    [Reactive]
-    public partial bool ConditionalCommandEnabled { get; set; } = false;
-
-    public ReactiveCommand<Unit, Unit> SimpleCommand { get; }
-    public ReactiveCommand<Unit, Unit> AsyncCommand { get; }
-    public ReactiveCommand<string, Unit> SearchCommand { get; }
-
-    public ReactiveCommand<Unit, Unit> ConditionalCommand { get; }
-
     public CommandTestViewModel()
     {
         SimpleCommand = ReactiveCommand.Create(() =>
@@ -47,4 +34,16 @@ public partial class CommandTestViewModel : ReactiveObject
             GD.Print($"[Command] Conditional command");
         }, commandEnabled);
     }
+
+    [Reactive]
+    public partial string QueryString { get; set; } = "World";
+
+    [Reactive]
+    public partial bool ConditionalCommandEnabled { get; set; } = false;
+
+    public ReactiveCommand<Unit, Unit> SimpleCommand { get; }
+    public ReactiveCommand<Unit, Unit> AsyncCommand { get; }
+    public ReactiveCommand<string, Unit> SearchCommand { get; }
+
+    public ReactiveCommand<Unit, Unit> ConditionalCommand { get; }
 }
