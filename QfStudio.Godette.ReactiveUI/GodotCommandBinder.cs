@@ -71,8 +71,10 @@ internal static class GodotCommandBinderImpl
     {
         var disposable = new CompositeDisposable();
 
+        var sharedParameter = commandParameter.StartWith((object?)null).Replay(1).RefCount();
+
         commandTrigger
-            .WithLatestFrom(commandParameter.StartWith((object?)null), (_, param) => param)
+            .WithLatestFrom(sharedParameter, (_, param) => param)
             .Subscribe(param =>
             {
                 if (command.CanExecute(param))
@@ -82,12 +84,14 @@ internal static class GodotCommandBinderImpl
 
         if (setViewEnabled != null)
         {
-            setViewEnabled(command.CanExecute(null));
-
-            Observable.FromEventPattern(
+            var canExecuteChanged = Observable.FromEventPattern(
                     h => command.CanExecuteChanged += h,
                     h => command.CanExecuteChanged -= h)
-                .WithLatestFrom(commandParameter.StartWith((object?)null), (_, param) => param)
+                .Select(_ => Unit.Default)
+                .StartWith(Unit.Default);
+
+            canExecuteChanged
+                .WithLatestFrom(sharedParameter, (_, param) => param)
                 .Select(command.CanExecute)
                 .DistinctUntilChanged()
                 .Subscribe(setViewEnabled)

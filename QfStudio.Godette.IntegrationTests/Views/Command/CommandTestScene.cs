@@ -1,4 +1,5 @@
 using System.Reactive.Disposables.Fluent;
+using System.Reactive.Linq;
 using Godot;
 using QfStudio.Godette.IntegrationTests.ViewModels.Command;
 using QfStudio.Godette.ReactiveUI;
@@ -29,6 +30,12 @@ public partial class CommandTestScene : Control
             this.Bind(ViewModel, vm => vm.ConditionalCommandEnabled, v => v.ConditionalCommandCheckButton.ButtonPressed)
                 .DisposeWith(d);
             this.BindCommand(ViewModel, vm => vm.ConditionalCommand, v => v.ConditionalCommandButton)
+                .DisposeWith(d);
+
+            this.Bind(ViewModel, vm => vm.InputText, v => v.EvenNumberCommandLineEdit.Text)
+                .DisposeWith(d);
+            this.BindCommand(ViewModel, vm => vm.AcceptEvenNumbersOnlyCommand, v => v.EvenNumberCommandButton,
+                    this.WhenAnyValue(x => x.ViewModel!.InputDigits).Switch())
                 .DisposeWith(d);
         });
     }

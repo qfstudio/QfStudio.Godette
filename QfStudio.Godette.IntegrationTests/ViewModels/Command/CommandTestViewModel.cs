@@ -1,4 +1,5 @@
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Godot;
 using ReactiveUI;
@@ -6,7 +7,7 @@ using ReactiveUI.SourceGenerators;
 
 namespace QfStudio.Godette.IntegrationTests.ViewModels.Command;
 
-public partial class CommandTestViewModel : ReactiveObject
+public partial class CommandTestViewModel : ViewModelBase
 {
     public CommandTestViewModel()
     {
@@ -33,6 +34,21 @@ public partial class CommandTestViewModel : ReactiveObject
         {
             GD.Print($"[Command] Conditional command");
         }, commandEnabled);
+
+        InputDigits = this.WhenAnyValue(x => x.InputText)
+            .Select(text => int.TryParse(text, out var num) ? (int?)num : null);
+
+        AcceptEvenNumbersOnlyCommand = ReactiveCommand.CreateFromTask<int>(async (num, ct) =>
+        {
+            await Task.Delay(200, ct);
+            if (ct.IsCancellationRequested)
+                return;
+
+            GD.Print(num % 2 == 0
+                ? $"[Command] AcceptEvenNumbersOnlyCommand Accepted! num={num}"
+                : $"[Command] AcceptEvenNumbersOnlyCommand Rejected! num={num}");
+            await Task.Delay(300, ct);
+        }, InputDigits.Select(num => num is not null && num % 2 == 0));
     }
 
     [Reactive]
@@ -41,9 +57,16 @@ public partial class CommandTestViewModel : ReactiveObject
     [Reactive]
     public partial bool ConditionalCommandEnabled { get; set; } = false;
 
+    [Reactive]
+    public partial string InputText { get; set; }
+
+    public IObservable<int?> InputDigits { get; }
+
     public ReactiveCommand<Unit, Unit> SimpleCommand { get; }
     public ReactiveCommand<Unit, Unit> AsyncCommand { get; }
     public ReactiveCommand<string, Unit> SearchCommand { get; }
 
     public ReactiveCommand<Unit, Unit> ConditionalCommand { get; }
+
+    public ReactiveCommand<int, Unit> AcceptEvenNumbersOnlyCommand { get; }
 }
