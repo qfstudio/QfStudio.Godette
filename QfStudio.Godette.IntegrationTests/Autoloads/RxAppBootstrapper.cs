@@ -1,5 +1,4 @@
 using System.Threading;
-using Godot;
 using QfStudio.Godette.ReactiveUI;
 using ReactiveUI;
 using ReactiveUI.Builder;
@@ -9,9 +8,15 @@ namespace QfStudio.Godette.IntegrationTests.Autoloads;
 
 public partial class RxAppBootstrapper : Godot.Node
 {
+    private readonly GodotFrameScheduler _processFrameScheduler = new();
+    private readonly GodotFrameScheduler _physicsFrameScheduler = new();
+
     public RxAppBootstrapper()
     {
         var scheduler = GodotMainThreadScheduler.Create(SynchronizationContext.Current!);
+        GodotSchedulers.MainThreadScheduler = scheduler;
+        GodotSchedulers.ProcessFrameScheduler = _processFrameScheduler;
+        GodotSchedulers.PhysicsFrameScheduler = _physicsFrameScheduler;
 
         RxAppBuilder.CreateReactiveUIBuilder()
             .WithMainThreadScheduler(scheduler)
@@ -24,6 +29,16 @@ public partial class RxAppBootstrapper : Godot.Node
             })
             .WithCoreServices()
             .BuildApp();
+    }
+
+    public override void _Process(double delta)
+    {
+        _processFrameScheduler.NotifyProcess(delta);
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        _physicsFrameScheduler.NotifyProcess(delta);
     }
 }
 
