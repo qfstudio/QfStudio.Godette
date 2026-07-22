@@ -1,4 +1,5 @@
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using Godot;
 
@@ -6,30 +7,81 @@ namespace QfStudio.Godette.ReactiveUI;
 
 public static class GodotObservableExtensions
 {
-    public static IObservable<bool> ObserveToggled(this BaseButton button) =>
-        Observable.FromEvent<BaseButton.ToggledEventHandler, bool>(
-            h => button.Toggled += h,
-            h => button.Toggled -= h);
+    extension(GodotObject target)
+    {
+        private IDisposable ConnectSignal(StringName signal, Callable callable)
+        {
+            target.Connect(signal, callable);
+            return Disposable.Create(() =>
+            {
+                if (GodotObject.IsInstanceValid(target))
+                    target.Disconnect(signal, callable);
+            });
+        }
 
-    public static IObservable<Unit> ObservePressed(this BaseButton button) =>
-        Observable.FromEvent(
-            h => button.Pressed += h,
-            h => button.Pressed -= h);
+        public IObservable<Unit> ObserveSignal(StringName signal) =>
+            Observable.Create<Unit>(observer =>
+                target.ConnectSignal(signal, Callable.From(() => observer.OnNext(Unit.Default))));
+
+        public IObservable<ValueTuple<T1>> ObserveSignal<T1>(StringName signal) =>
+            Observable.Create<ValueTuple<T1>>(observer =>
+                target.ConnectSignal(signal, Callable.From((T1 a1) => observer.OnNext(ValueTuple.Create(a1)))));
+
+        public IObservable<ValueTuple<T1, T2>> ObserveSignal<T1, T2>(StringName signal) =>
+            Observable.Create<ValueTuple<T1, T2>>(observer =>
+                target.ConnectSignal(signal, Callable.From((T1 a1, T2 a2) => observer.OnNext(ValueTuple.Create(a1, a2)))));
+
+        public IObservable<ValueTuple<T1, T2, T3>> ObserveSignal<T1, T2, T3>(StringName signal) =>
+            Observable.Create<ValueTuple<T1, T2, T3>>(observer =>
+                target.ConnectSignal(signal, Callable.From((T1 a1, T2 a2, T3 a3) => observer.OnNext(ValueTuple.Create(a1, a2, a3)))));
+
+        public IObservable<ValueTuple<T1, T2, T3, T4>> ObserveSignal<T1, T2, T3, T4>(StringName signal) =>
+            Observable.Create<ValueTuple<T1, T2, T3, T4>>(observer =>
+                target.ConnectSignal(signal, Callable.From((T1 a1, T2 a2, T3 a3, T4 a4) => observer.OnNext(ValueTuple.Create(a1, a2, a3, a4)))));
+
+        public IObservable<ValueTuple<T1, T2, T3, T4, T5>> ObserveSignal<T1, T2, T3, T4, T5>(StringName signal) =>
+            Observable.Create<ValueTuple<T1, T2, T3, T4, T5>>(observer =>
+                target.ConnectSignal(signal, Callable.From((T1 a1, T2 a2, T3 a3, T4 a4, T5 a5) => observer.OnNext(ValueTuple.Create(a1, a2, a3, a4, a5)))));
+
+        public IObservable<ValueTuple<T1, T2, T3, T4, T5, T6>> ObserveSignal<T1, T2, T3, T4, T5, T6>(StringName signal) =>
+            Observable.Create<ValueTuple<T1, T2, T3, T4, T5, T6>>(observer =>
+                target.ConnectSignal(signal, Callable.From((T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6) => observer.OnNext(ValueTuple.Create(a1, a2, a3, a4, a5, a6)))));
+
+        public IObservable<ValueTuple<T1, T2, T3, T4, T5, T6, T7>> ObserveSignal<T1, T2, T3, T4, T5, T6, T7>(StringName signal) =>
+            Observable.Create<ValueTuple<T1, T2, T3, T4, T5, T6, T7>>(observer =>
+                target.ConnectSignal(signal, Callable.From((T1 a1, T2 a2, T3 a3, T4 a4, T5 a5, T6 a6, T7 a7) => observer.OnNext(ValueTuple.Create(a1, a2, a3, a4, a5, a6, a7)))));
+    }
+
+    extension(BaseButton button)
+    {
+        public IObservable<bool> ObserveToggled() =>
+            Observable.FromEvent<BaseButton.ToggledEventHandler, bool>(
+                h => button.Toggled += h,
+                h => button.Toggled -= h);
+
+        public IObservable<Unit> ObservePressed() =>
+            Observable.FromEvent(
+                h => button.Pressed += h,
+                h => button.Pressed -= h);
+    }
 
     public static IObservable<double> ObserveValueChanged(this Godot.Range range) =>
         Observable.FromEvent<Godot.Range.ValueChangedEventHandler, double>(
             h => range.ValueChanged += h,
             h => range.ValueChanged -= h);
 
-    public static IObservable<string> ObserveTextChanged(this LineEdit lineEdit) =>
-        Observable.FromEvent<LineEdit.TextChangedEventHandler, string>(
-            h => lineEdit.TextChanged += h,
-            h => lineEdit.TextChanged -= h);
+    extension(LineEdit lineEdit)
+    {
+        public IObservable<string> ObserveTextChanged() =>
+            Observable.FromEvent<LineEdit.TextChangedEventHandler, string>(
+                h => lineEdit.TextChanged += h,
+                h => lineEdit.TextChanged -= h);
 
-    public static IObservable<string> ObserveTextSubmitted(this LineEdit lineEdit) =>
-        Observable.FromEvent<LineEdit.TextSubmittedEventHandler, string>(
-            h => lineEdit.TextSubmitted += h,
-            h => lineEdit.TextSubmitted -= h);
+        public IObservable<string> ObserveTextSubmitted() =>
+            Observable.FromEvent<LineEdit.TextSubmittedEventHandler, string>(
+                h => lineEdit.TextSubmitted += h,
+                h => lineEdit.TextSubmitted -= h);
+    }
 
     public static IObservable<Unit> ObserveTextChanged(this TextEdit textEdit) =>
         Observable.FromEvent(
@@ -81,13 +133,16 @@ public static class GodotObservableExtensions
             h => dialog.FileSelected += h,
             h => dialog.FileSelected -= h);
 
-    public static IObservable<Unit> ObserveProcessFrame(this SceneTree tree) =>
-        Observable.FromEvent(
-            h => tree.ProcessFrame += h,
-            h => tree.ProcessFrame -= h);
+    extension(SceneTree tree)
+    {
+        public IObservable<Unit> ObserveProcessFrame() =>
+            Observable.FromEvent(
+                h => tree.ProcessFrame += h,
+                h => tree.ProcessFrame -= h);
 
-    public static IObservable<Unit> ObservePhysicsFrame(this SceneTree tree) =>
-        Observable.FromEvent(
-            h => tree.PhysicsFrame += h,
-            h => tree.PhysicsFrame -= h);
+        public IObservable<Unit> ObservePhysicsFrame() =>
+            Observable.FromEvent(
+                h => tree.PhysicsFrame += h,
+                h => tree.PhysicsFrame -= h);
+    }
 }
