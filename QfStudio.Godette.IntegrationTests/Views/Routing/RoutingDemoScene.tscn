@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://2xyc5wpbixum"]
+
+[ext_resource type="Script" uid="uid://bvpiwsq7c0jya" path="res://Views/Routing/RoutingDemoScene.cs" id="1_rds"]
+
+[node name="RoutingDemoScene" type="VBoxContainer" unique_id=414682855]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rds")
+
+[node name="BackButton" type="Button" parent="." unique_id=2080560003]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back to Home"
+
+[node name="Title" type="Label" parent="." unique_id=93334045]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Routing Demo"
+horizontal_alignment = 1
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1064058254]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CurrentPageLabel" type="Label" parent="VBox" unique_id=903386034]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Current: (none)"
+horizontal_alignment = 1
+
+[node name="NavButtons" type="HBoxContainer" parent="VBox" unique_id=303550120]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NavigateToAButton" type="Button" parent="VBox/NavButtons" unique_id=804062982]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Go to Page A"
+
+[node name="NavigateToBButton" type="Button" parent="VBox/NavButtons" unique_id=1524196102]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Go to Page B"
+
+[node name="NavigateBackButton" type="Button" parent="VBox/NavButtons" unique_id=1522664681]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Back"
+
+[node name="NavigateAndResetButton" type="Button" parent="VBox/NavButtons" unique_id=2051922215]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reset to the First Page A"
+
+[node name="ContentContainer" type="VBoxContainer" parent="VBox" unique_id=255557481]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
