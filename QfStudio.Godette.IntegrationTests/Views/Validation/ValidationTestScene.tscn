@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://blmmc7fsknhef"]
+
+[ext_resource type="Script" uid="uid://crw1wtehibq15" path="res://Views/Validation/ValidationTestScene.cs" id="1_valid"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1"]
+font_size = 24
+
+[node name="ValidationTestScene" type="VBoxContainer" unique_id=537774861]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_valid")
+
+[node name="BackButton" type="Button" parent="." unique_id=1368011335]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back to Home"
+
+[node name="Title" type="Label" parent="." unique_id=266589193]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Validation Tests (ReactiveUI.Validation IValidatableViewModel)"
+label_settings = SubResource("LabelSettings_1")
+horizontal_alignment = 1
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=1968963814]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NameEdit" type="LineEdit" parent="VBox" unique_id=2066233426]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Enter name..."
+
+[node name="NameErrorLabel" type="Label" parent="VBox" unique_id=177584880]
+unique_name_in_owner = true
+modulate = Color(1, 0.3, 0.3, 1)
+layout_mode = 2
+
+[node name="EmailEdit" type="LineEdit" parent="VBox" unique_id=1511125742]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Enter email..."
+
+[node name="EmailErrorLabel" type="Label" parent="VBox" unique_id=592994674]
+unique_name_in_owner = true
+modulate = Color(1, 0.3, 0.3, 1)
+layout_mode = 2
+
+[node name="SubmitButton" type="Button" parent="VBox" unique_id=446620346]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Submit"
+
+[node name="StatusLabel" type="Label" parent="VBox" unique_id=1359866583]
+unique_name_in_owner = true
+layout_mode = 2

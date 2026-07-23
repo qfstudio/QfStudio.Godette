@@ -20,5 +20,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="ReactiveUI.Validation" Version="7.1.0" />
   </ItemGroup>
 </Project>
