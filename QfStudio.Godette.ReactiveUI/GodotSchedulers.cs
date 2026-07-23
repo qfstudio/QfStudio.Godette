@@ -1,4 +1,6 @@
-﻿namespace QfStudio.Godette.ReactiveUI;
+﻿using ReactiveUI;
+
+namespace QfStudio.Godette.ReactiveUI;
 
 public static class GodotSchedulers
 {
@@ -18,5 +20,15 @@ public static class GodotSchedulers
     {
         get => field ?? throw new NullReferenceException();
         set;
+    }
+}
+
+public static class RxSchedulersExtensions
+{
+    extension(RxSchedulers)
+    {
+        public static GodotMainThreadScheduler GodotMainThreadScheduler => GodotSchedulers.MainThreadScheduler;
+        public static GodotFrameScheduler ProcessFrameScheduler => GodotSchedulers.ProcessFrameScheduler;
+        public static GodotFrameScheduler PhysicsFrameScheduler => GodotSchedulers.PhysicsFrameScheduler;
     }
 }
