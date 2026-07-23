@@ -28,6 +28,11 @@ namespace QfStudio.Godette.ReactiveUI;
 /// Semantically equivalent to Avalonia's <c>AttachedToVisualTree</c> and <c>DetachedFromVisualTree</c>.
 /// </para>
 /// </remarks>
+/// <remarks>
+/// <para>
+/// Note that for a Godot C# Node, the virtual method <c>_Ready</c> is called before the <c>Ready</c> signal is emitted.
+/// </para>
+/// </remarks>
 public class GodotActivationFetcher : IActivationForViewFetcher
 {
     public int GetAffinityForView(Type view)
