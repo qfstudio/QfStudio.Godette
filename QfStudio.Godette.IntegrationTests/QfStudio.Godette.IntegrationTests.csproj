@@ -7,7 +7,6 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\QfStudio.Godette\QfStudio.Godette.csproj" />
     <ProjectReference Include="..\QfStudio.Godette.ReactiveUI\QfStudio.Godette.ReactiveUI.csproj" />
     <ProjectReference Include="..\QfStudio.Godette.ReactiveUI.SourceGenerators\QfStudio.Godette.ReactiveUI.SourceGenerators.csproj"
                       OutputItemType="Analyzer"
