@@ -1,5 +1,9 @@
 namespace QfStudio.Godette.ReactiveUI.Operators;
 
+/// <remarks>
+/// Equivalent to <c>Throttle</c> in Rx.NET or <c>debounce</c> in RxJS.
+/// See <see cref="FrameObservableExtensions.DebounceFrame"/>.
+/// </remarks>
 internal sealed class DebounceFrame<T>(IObservable<T> source, uint frameCount, GodotFrameScheduler scheduler) : IObservable<T>
 {
     public IDisposable Subscribe(IObserver<T> observer)
@@ -45,16 +49,21 @@ internal sealed class DebounceFrame<T>(IObservable<T> source, uint frameCount, G
                     return false;
                 }
 
+                if (IsUpstreamTerminated)
+                {
+                    // On upstream completion, flush the latest pending value before completing
+                    // (matches Rx.NET Throttle and RxJS debounceTime semantics).
+                    if (_hasValue)
+                        EmitNext(_latestValue!);
+
+                    Complete();
+                    return false;
+                }
+
                 if (_hasValue && ++_currentFrame >= _frameCount)
                 {
                     EmitNext(_latestValue!);
                     _hasValue = false;
-                }
-
-                if (IsUpstreamTerminated)
-                {
-                    Complete();
-                    return false;
                 }
 
                 return true;

@@ -1,5 +1,9 @@
 namespace QfStudio.Godette.ReactiveUI.Operators;
 
+/// <remarks>
+/// No direct equivalent in Rx.NET; equivalent to <c>throttle</c> in RxJS.
+/// See <see cref="FrameObservableExtensions.ThrottleFirstFrame"/>.
+/// </remarks>
 internal sealed class ThrottleFirstFrame<T>(IObservable<T> source, uint frameCount, GodotFrameScheduler scheduler) : IObservable<T>
 {
     public IDisposable Subscribe(IObserver<T> observer)

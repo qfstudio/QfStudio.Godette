@@ -22,12 +22,21 @@ internal sealed class EveryValueChanged<TSource, TProperty>(TSource source, Func
             _source = source;
             _propertySelector = propertySelector;
             _comparer = comparer;
-            _previousValue = propertySelector(source);
+            _previousValue = propertySelector(source); // fail-fast on subscribe
         }
 
         protected override bool MoveNextCore(double delta)
         {
-            var currentValue = _propertySelector(_source);
+            TProperty currentValue;
+            try
+            {
+                currentValue = _propertySelector(_source);
+            }
+            catch (Exception ex)
+            {
+                Error(ex);
+                return false;
+            }
 
             if (!_comparer.Equals(_previousValue, currentValue))
             {

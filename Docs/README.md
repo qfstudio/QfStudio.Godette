@@ -35,6 +35,10 @@ TODO
 
 ---
 
+## Development
+
+See [Developer.md](Developer.md).
+
 ## AI Disclosure
 
 This project uses AI-assisted coding for suggestions and trivial tasks only. 
