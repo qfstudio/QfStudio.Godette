@@ -1,18 +1,19 @@
 using System.Collections.Concurrent;
 using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
+using System.Threading;
 
 namespace QfStudio.Godette.ReactiveUI;
 
-public interface IFrameSchedulerWorkItem : IDisposable
+public interface IFrameWorkItem : IDisposable
 {
     public bool MoveNext(double delta);
 }
 
 public class GodotFrameScheduler : IScheduler
 {
-    private readonly List<IFrameSchedulerWorkItem> _activeWorkItems = [];
-    private readonly ConcurrentQueue<IFrameSchedulerWorkItem> _pendingItemsToActivate = [];
+    private readonly List<IFrameWorkItem> _activeWorkItems = [];
+    private readonly ConcurrentQueue<IFrameWorkItem> _pendingItemsToActivate = [];
     private readonly Stack<int> _pendingItemIndicesToDeactivate = [];
     private double _now;
 
@@ -59,7 +60,7 @@ public class GodotFrameScheduler : IScheduler
     }
 
     /// <remarks>Thread-safe</remarks>
-    public IDisposable Schedule(IFrameSchedulerWorkItem item)
+    public IDisposable Schedule(IFrameWorkItem item)
     {
         var disposable = Disposable.Create(item.Dispose);
         _pendingItemsToActivate.Enqueue(item);
@@ -95,7 +96,7 @@ public class GodotFrameScheduler : IScheduler
     }
 }
 
-public abstract class WorkItemBase : IFrameSchedulerWorkItem
+public abstract class FrameWorkItemBase : IFrameWorkItem
 {
     private bool _isDisposed;
 
@@ -112,16 +113,15 @@ public abstract class WorkItemBase : IFrameSchedulerWorkItem
 
     public void Dispose()
     {
-        if (_isDisposed)
+        if (Interlocked.CompareExchange(ref _isDisposed, true, false))
             return;
 
         Dispose(true);
-        _isDisposed = true;
         GC.SuppressFinalize(this);
     }
 }
 
-internal sealed class OneShotWorkItem<TState>(IScheduler scheduler, TState state, Func<IScheduler, TState, IDisposable> action) : WorkItemBase
+internal sealed class OneShotWorkItem<TState>(IScheduler scheduler, TState state, Func<IScheduler, TState, IDisposable> action) : FrameWorkItemBase
 {
     private IDisposable? _disposable;
 
@@ -139,7 +139,7 @@ internal sealed class OneShotWorkItem<TState>(IScheduler scheduler, TState state
 }
 
 internal sealed class DelayedWorkItem<TState>(GodotFrameScheduler scheduler, TState state, Func<IScheduler, TState, IDisposable> action, double delay)
-    : WorkItemBase
+    : FrameWorkItemBase
 {
     private IDisposable? _disposable;
     private double _elapsed;

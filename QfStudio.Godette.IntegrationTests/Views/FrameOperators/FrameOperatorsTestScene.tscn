@@ -1,0 +1,164 @@
+[gd_scene format=3 uid="uid://dyluvi82b1w2j"]
+
+[ext_resource type="Script" uid="uid://ucogc8gsqf6u" path="res://Views/FrameOperators/FrameOperatorsTestScene.cs" id="1_frame"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_frame"]
+font_size = 20
+
+[node name="FrameOperatorsTestScene" type="VBoxContainer" unique_id=1728589]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_frame")
+
+[node name="BackButton" type="Button" parent="." unique_id=28797061]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back to Home"
+
+[node name="Title" type="Label" parent="." unique_id=1547227749]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Frame Operators Tests"
+label_settings = SubResource("LabelSettings_frame")
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1288091834]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1860028733]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1390580057]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer" unique_id=1292714255]
+layout_mode = 2
+text = "Frame: "
+
+[node name="FrameCountLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer" unique_id=392818037]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="Label2" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer" unique_id=1245536270]
+layout_mode = 2
+text = "Physics Frame: "
+
+[node name="PhycicsFrameCountLabel" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer" unique_id=1203379017]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="EveryUpdateSection" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=119190516]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="ScrollContainer/VBoxContainer/EveryUpdateSection" unique_id=58293512]
+layout_mode = 2
+text = "1. EveryUpdate - push Unit every frame"
+label_settings = SubResource("LabelSettings_frame")
+
+[node name="EveryUpdateLabel" type="Label" parent="ScrollContainer/VBoxContainer/EveryUpdateSection" unique_id=611951224]
+unique_name_in_owner = true
+layout_mode = 2
+text = "EveryUpdate: Waiting..."
+
+[node name="EveryPhysicsUpdateLabel" type="Label" parent="ScrollContainer/VBoxContainer/EveryUpdateSection" unique_id=324334829]
+unique_name_in_owner = true
+layout_mode = 2
+text = "EveryUpdate: Waiting..."
+
+[node name="TimerFrameSection" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1386599720]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="ScrollContainer/VBoxContainer/TimerFrameSection" unique_id=1164188042]
+layout_mode = 2
+text = "2. TimerFrame - frame-based timer (fire after 60 frames)"
+label_settings = SubResource("LabelSettings_frame")
+
+[node name="TimerFrameLabel" type="Label" parent="ScrollContainer/VBoxContainer/TimerFrameSection" unique_id=921494997]
+unique_name_in_owner = true
+layout_mode = 2
+text = "TimerFrame: Waiting..."
+
+[node name="DelayFrameSection" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=605575314]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="ScrollContainer/VBoxContainer/DelayFrameSection" unique_id=1713733415]
+layout_mode = 2
+text = "3. DelayFrame - delay by frame count (delay 30 frames)"
+label_settings = SubResource("LabelSettings_frame")
+
+[node name="DelayFrameLabel" type="Label" parent="ScrollContainer/VBoxContainer/DelayFrameSection" unique_id=1252801908]
+unique_name_in_owner = true
+layout_mode = 2
+text = "DelayFrame: Waiting..."
+
+[node name="DebounceFrameSection" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=368054784]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="ScrollContainer/VBoxContainer/DebounceFrameSection" unique_id=1987679215]
+layout_mode = 2
+text = "4. DebounceFrame - debounce by frame count (30 frames)"
+label_settings = SubResource("LabelSettings_frame")
+
+[node name="DebounceFrameLabel" type="Label" parent="ScrollContainer/VBoxContainer/DebounceFrameSection" unique_id=2022418423]
+unique_name_in_owner = true
+layout_mode = 2
+text = "DebounceFrame: Waiting..."
+
+[node name="ThrottleFirstFrameSection" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=211236896]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="ScrollContainer/VBoxContainer/ThrottleFirstFrameSection" unique_id=756480814]
+layout_mode = 2
+text = "5. ThrottleFirstFrame - throttle first by frame count (60 frames)"
+label_settings = SubResource("LabelSettings_frame")
+
+[node name="ThrottleFirstFrameLabel" type="Label" parent="ScrollContainer/VBoxContainer/ThrottleFirstFrameSection" unique_id=338092172]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ThrottleFirstFrame: Waiting..."
+
+[node name="ChunkFrameSection" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=2070976756]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="ScrollContainer/VBoxContainer/ChunkFrameSection" unique_id=68126751]
+layout_mode = 2
+text = "6. ChunkFrame - chunk by frame count (every 30 frames)"
+label_settings = SubResource("LabelSettings_frame")
+
+[node name="ChunkFrameLabel" type="Label" parent="ScrollContainer/VBoxContainer/ChunkFrameSection" unique_id=1994315198]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ChunkFrame: Waiting..."
+
+[node name="ReturnFrameSection" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1923434016]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="ScrollContainer/VBoxContainer/ReturnFrameSection" unique_id=528528241]
+layout_mode = 2
+text = "7. ReturnFrame - return value after frame delay (60 frames)"
+label_settings = SubResource("LabelSettings_frame")
+
+[node name="ReturnFrameLabel" type="Label" parent="ScrollContainer/VBoxContainer/ReturnFrameSection" unique_id=999597133]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ReturnFrame: Waiting..."
+
+[node name="IntervalFrameSection" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1860309809]
+layout_mode = 2
+
+[node name="Header" type="Label" parent="ScrollContainer/VBoxContainer/IntervalFrameSection" unique_id=8257858]
+layout_mode = 2
+text = "8. IntervalFrame - interval by frame count (every 30 frames)"
+label_settings = SubResource("LabelSettings_frame")
+
+[node name="IntervalFrameLabel" type="Label" parent="ScrollContainer/VBoxContainer/IntervalFrameSection" unique_id=989678518]
+unique_name_in_owner = true
+layout_mode = 2
+text = "IntervalFrame: Waiting..."
