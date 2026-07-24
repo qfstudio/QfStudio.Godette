@@ -35,6 +35,16 @@ public static class FrameObservableExtensions
             scheduler ??= GodotSchedulers.ProcessFrameScheduler;
             return new ReturnFrame<T>(value, dueFrameCount, scheduler);
         }
+
+        public static IObservable<TProperty> PollEveryUpdate<TSource, TProperty>(
+            TSource source,
+            Func<TSource, TProperty> propertySelector,
+            IEqualityComparer<TProperty>? equalityComparer = null,
+            GodotFrameScheduler? scheduler = null)
+        {
+            scheduler ??= GodotSchedulers.ProcessFrameScheduler;
+            return new EveryValueChanged<TSource, TProperty>(source, propertySelector, equalityComparer, scheduler);
+        }
     }
 
     extension<T>(IObservable<T> source)
