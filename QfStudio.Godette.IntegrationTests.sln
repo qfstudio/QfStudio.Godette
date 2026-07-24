@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QfStudio.Godette.ReactiveUI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QfStudio.Godette.ReactiveUI.SourceGenerators", "QfStudio.Godette.ReactiveUI.SourceGenerators\QfStudio.Godette.ReactiveUI.SourceGenerators.csproj", "{5D70CE32-63E4-4DF9-8EFA-AB23CDF705A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QfStudio.Godette.Tests", "QfStudio.Godette.Tests\QfStudio.Godette.Tests.csproj", "{78AF9DE5-8F42-4B8B-97B8-8B2B58FAC70D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 	Debug|Any CPU = Debug|Any CPU
@@ -31,5 +33,11 @@ Global
 		{5D70CE32-63E4-4DF9-8EFA-AB23CDF705A2}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
 		{5D70CE32-63E4-4DF9-8EFA-AB23CDF705A2}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
 		{5D70CE32-63E4-4DF9-8EFA-AB23CDF705A2}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+		{78AF9DE5-8F42-4B8B-97B8-8B2B58FAC70D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78AF9DE5-8F42-4B8B-97B8-8B2B58FAC70D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78AF9DE5-8F42-4B8B-97B8-8B2B58FAC70D}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78AF9DE5-8F42-4B8B-97B8-8B2B58FAC70D}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{78AF9DE5-8F42-4B8B-97B8-8B2B58FAC70D}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{78AF9DE5-8F42-4B8B-97B8-8B2B58FAC70D}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal
